@@ -1,18 +1,31 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
+[RequireComponent(typeof(Collider2D), typeof(Rigidbody2D))]
 public class PlayerController : MonoBehaviour
 {
-    // Start is called before the first frame update
     void Start()
     {
         
     }
 
-    // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        
+
+    }
+
+    void OnMove(InputValue inputValue)
+    {
+        Debug.Log("OnMove - " + gameObject.name);
+    }
+
+    void OnLook(InputValue inputValue)
+    {
+        Debug.Log("OnLook - " + gameObject.name);
+    }
+
+    void OnFire(InputValue inputValue)
+    {
+        Debug.Log("OnFire - " + gameObject.name);
     }
 }
