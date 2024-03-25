@@ -692,6 +692,7 @@ MonoBehaviour:
   _moveSpeed: 1
   _gunRotationPoint: {fileID: 1724216170}
   _gunFirepoint: {fileID: 499745893}
+  _gunSpriteRenderer: {fileID: 1964368080}
   _rightStickContinuousFire: 1
   _shotsPerSecond: 8
 --- !u!1 &1095528798

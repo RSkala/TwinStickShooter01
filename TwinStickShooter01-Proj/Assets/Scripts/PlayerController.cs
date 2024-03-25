@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float _moveSpeed;
     [SerializeField] Transform _gunRotationPoint;
     [SerializeField] Transform _gunFirepoint;
+    [SerializeField] SpriteRenderer _gunSpriteRenderer; // RKS TODO: Move to more appropriate place
     [SerializeField] bool _rightStickContinuousFire = true;
     [SerializeField] float _shotsPerSecond;
 
@@ -22,9 +23,10 @@ public class PlayerController : MonoBehaviour
     float _timeSinceLastShot;
     float _continuousFireRate;
     bool _useMouseLook = false;
-    PlayerFacingDirection _playerFacingDirection = PlayerFacingDirection.Invalid;
+    SpriteFacingDirection _playerFacingDirection = SpriteFacingDirection.Invalid;
+    SpriteFacingDirection _gunFacingDirection = SpriteFacingDirection.Invalid;
 
-    enum PlayerFacingDirection
+    enum SpriteFacingDirection
     {
         Invalid,
         Right,
@@ -45,7 +47,10 @@ public class PlayerController : MonoBehaviour
         ResetTimeSinceLastShot();
 
         // Sprite faces right by default
-        _playerFacingDirection = PlayerFacingDirection.Right;
+        _playerFacingDirection = SpriteFacingDirection.Right;
+
+        // Default gun as pointing to the right
+        _gunFacingDirection = SpriteFacingDirection.Right;
     }
 
     void FixedUpdate()
@@ -57,7 +62,8 @@ public class PlayerController : MonoBehaviour
             Vector2 newPosition = _rigidbody2D.position + movementDirection * _moveSpeed * Time.fixedDeltaTime;
             _rigidbody2D.MovePosition(newPosition);
 
-            _playerFacingDirection = _moveInput.x >= 0.0f ? PlayerFacingDirection.Right : PlayerFacingDirection.Left;
+            // Update the player facing based on the player's movement input
+            _playerFacingDirection = _moveInput.x >= 0.0f ? SpriteFacingDirection.Right : SpriteFacingDirection.Left;
         }
 
         // Update Look
@@ -67,6 +73,9 @@ public class PlayerController : MonoBehaviour
             float flipValue = cross.z < 0.0f ? -1.0f : 1.0f;
             float rotateAngle = Vector2.Angle(Vector2.up, _lookInput) * flipValue;
             _gunRotationPoint.rotation = Quaternion.Euler(0.0f, 0.0f, rotateAngle);
+
+            // Update the gun facing based on the player's look input direction
+            _gunFacingDirection = cross.z >= 0.0f ? SpriteFacingDirection.Left : SpriteFacingDirection.Right;
 
             // If "Right Stick Continuous Fire" is enabled, then fire bullets as long as the right stick is held in any direction (e.g. like Smash TV)
             if(_rightStickContinuousFire)
@@ -91,19 +100,35 @@ public class PlayerController : MonoBehaviour
                 float flipValue = cross.z < 0.0f ? -1.0f : 1.0f;
                 float rotateAngle = Vector2.Angle(Vector2.up, dirPlayerToMousePos) * flipValue;
                 _gunRotationPoint.rotation = Quaternion.Euler(0.0f, 0.0f, rotateAngle);
+
+                // Update the gun facing based on the player's mouse cursor direction
+                _gunFacingDirection = cross.z >= 0.0f ? SpriteFacingDirection.Left : SpriteFacingDirection.Right;
             }
         }
 
         // Update facing direction
         UpdatePlayerSpriteFacingDirection();
+
+        // Update gun facing direction
+        UpdateGunSpriteFacingDirection();
     }
 
     void UpdatePlayerSpriteFacingDirection()
     {
         switch(_playerFacingDirection)
         {
-            case PlayerFacingDirection.Right: _spriteRenderer.flipX = false; break;
-            case PlayerFacingDirection.Left: _spriteRenderer.flipX = true; break;
+            case SpriteFacingDirection.Right: _spriteRenderer.flipX = false; break;
+            case SpriteFacingDirection.Left: _spriteRenderer.flipX = true; break;
+            default: break;
+        }
+    }
+
+    void UpdateGunSpriteFacingDirection()
+    {
+        switch(_gunFacingDirection)
+        {
+            case SpriteFacingDirection.Right: _gunSpriteRenderer.flipY = false; break;
+            case SpriteFacingDirection.Left: _gunSpriteRenderer.flipY = true; break;
             default: break;
         }
     }
