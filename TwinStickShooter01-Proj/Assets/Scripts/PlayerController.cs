@@ -6,13 +6,21 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] float _moveSpeed;
     [SerializeField] Transform _gunRotationPoint;
+
+    // Player input values
     Vector2 _moveInput;
     Vector2 _lookInput;
+    Vector2 _mouseLookPosition;
+
     Rigidbody2D _rigidBody2D;
+    Camera _mainCamera;
+
+    bool _useMouseLook = false;
 
     void Start()
     {
         _rigidBody2D = GetComponent<Rigidbody2D>();
+        _mainCamera = Camera.main;
     }
 
     void FixedUpdate()
@@ -31,7 +39,20 @@ public class PlayerController : MonoBehaviour
             Vector3 cross = Vector3.Cross(Vector2.up, _lookInput);
             float flipValue = cross.z < 0.0f ? -1.0f : 1.0f;
             float rotateAngle = Vector2.Angle(Vector2.up, _lookInput) * flipValue;
-            _gunRotationPoint.rotation = Quaternion.Euler(0.0f, 0.0f, rotateAngle);  
+            _gunRotationPoint.rotation = Quaternion.Euler(0.0f, 0.0f, rotateAngle);
+        }
+        else
+        {
+            if(_useMouseLook)
+            {
+                // Get the direction from the player character to the mouse position
+                Vector2 dirPlayerToMousePos = (_mouseLookPosition - _rigidBody2D.position).normalized;
+
+                Vector3 cross = Vector3.Cross(Vector2.up, dirPlayerToMousePos);
+                float flipValue = cross.z < 0.0f ? -1.0f : 1.0f;
+                float rotateAngle = Vector2.Angle(Vector2.up, dirPlayerToMousePos) * flipValue;
+                _gunRotationPoint.rotation = Quaternion.Euler(0.0f, 0.0f, rotateAngle);
+            }
         }
     }
 
@@ -43,6 +64,25 @@ public class PlayerController : MonoBehaviour
     void OnLook(InputValue inputValue)
     {
         _lookInput = inputValue.Get<Vector2>();
+
+        // The player is using their gamepad's right thumbstick for aiming, so do not use mouse look for aiming the gun
+        _useMouseLook = false;
+    }
+
+    void OnMouseMove(InputValue inputValue)
+    {
+        Vector3 mousePosition = inputValue.Get<Vector2>();
+
+        // The 2D Orthographic camera's nearClipPlane needs to be used for the z, otherwise the "z" (forward) will be outside the bounds of our game view
+        mousePosition.z = _mainCamera.nearClipPlane;
+        Vector3 mouseWorldPoint = _mainCamera.ScreenToWorldPoint(mousePosition);
+        _mouseLookPosition = mouseWorldPoint;
+
+        // The player has moved their mouse, so use mouse look for the player's gun direction
+        _useMouseLook = true;
+
+        // Clear the lookInput (gamepad right thumbstick)
+        _lookInput = Vector2.zero;
     }
 
     void OnFire(InputValue inputValue)
