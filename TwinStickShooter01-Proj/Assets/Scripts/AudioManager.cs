@@ -3,14 +3,17 @@ using UnityEngine;
 public class AudioManager : MonoBehaviour
 {
     [SerializeField] AudioClip[] _pistolFireClips;
+    [SerializeField] AudioClip[] _arrowFireClips;
 
     public static AudioManager Instance { get; private set; }
 
     AudioSource _pistolFireSource;
+    AudioSource _arrowFireSource;
 
     public enum SFX
     {
         PistolFire,
+        ArrowFire,
     }
 
     void Awake()
@@ -25,8 +28,9 @@ public class AudioManager : MonoBehaviour
 
     void Start()
     {
-                // Create the AudioSource objects and add as chidren
+        // Create the AudioSource objects and add as chidren
         CreateAudioSourceChild(out _pistolFireSource, "PistolFireSource");
+        CreateAudioSourceChild(out _arrowFireSource, "ArrowFireSource");
     }
 
     void CreateAudioSourceChild(out AudioSource audioSource, string audioSourceName)
@@ -60,6 +64,7 @@ public class AudioManager : MonoBehaviour
         switch(sfx)
         {
             case SFX.PistolFire: PlayRandomSoundFromClips(_pistolFireSource, _pistolFireClips); break;
+            case SFX.ArrowFire: PlayRandomSoundFromClips(_arrowFireSource, _arrowFireClips); break;
             default: break;
         }
     }

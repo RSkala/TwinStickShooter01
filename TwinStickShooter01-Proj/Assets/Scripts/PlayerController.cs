@@ -84,7 +84,8 @@ public class PlayerController : MonoBehaviour
                 if(_timeSinceLastShot >= _continuousFireRate)
                 {
                     ProjectileController.Instance.SpawnProjectile(_gunFirepoint.position, _gunRotationPoint.rotation);
-                    AudioManager.Instance.PlaySound(AudioManager.SFX.PistolFire);
+                    //AudioManager.Instance.PlaySound(AudioManager.SFX.PistolFire);
+                    AudioManager.Instance.PlaySound(AudioManager.SFX.ArrowFire);
                     _timeSinceLastShot = 0.0f;
                 }
             }

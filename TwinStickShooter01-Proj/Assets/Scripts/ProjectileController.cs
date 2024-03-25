@@ -4,6 +4,7 @@ using UnityEngine;
 public class ProjectileController : MonoBehaviour
 {
     [SerializeField] ProjectilePistolBullet _pistolBulletPrefab;
+    [SerializeField] ProjectileArrow _projectileArrowPrefab;
 
     public static ProjectileController Instance { get; private set; }
 
@@ -28,6 +29,7 @@ public class ProjectileController : MonoBehaviour
     public void SpawnProjectile(Vector2 projectilePosition, Quaternion projectileRotation)
     {
         // RKS TODO: Allocate references on Start for pooling
-        ProjectilePistolBullet newPistolBullet = GameObject.Instantiate(_pistolBulletPrefab, projectilePosition, projectileRotation);
+        //ProjectilePistolBullet newPistolBullet = GameObject.Instantiate(_pistolBulletPrefab, projectilePosition, projectileRotation);
+        ProjectileArrow newPistolBullet = GameObject.Instantiate(_projectileArrowPrefab, projectilePosition, projectileRotation);
     }
 }
