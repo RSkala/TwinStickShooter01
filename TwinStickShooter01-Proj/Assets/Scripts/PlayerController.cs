@@ -16,22 +16,36 @@ public class PlayerController : MonoBehaviour
     Vector2 _mouseLookPosition;
 
     Rigidbody2D _rigidbody2D;
+    SpriteRenderer _spriteRenderer;
+
     Camera _mainCamera;
     float _timeSinceLastShot;
     float _continuousFireRate;
-
     bool _useMouseLook = false;
+    PlayerFacingDirection _playerFacingDirection = PlayerFacingDirection.Invalid;
+
+    enum PlayerFacingDirection
+    {
+        Invalid,
+        Right,
+        Left
+    }
 
     void ResetTimeSinceLastShot() { _timeSinceLastShot = _continuousFireRate; }
 
     void Start()
     {
         _rigidbody2D = GetComponent<Rigidbody2D>();
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+
         _mainCamera = Camera.main;
         _continuousFireRate = 1.0f / _shotsPerSecond;
 
         // Initialize "time since last shot" to the fire rate, so there is no delay on the very first shot
         ResetTimeSinceLastShot();
+
+        // Sprite faces right by default
+        _playerFacingDirection = PlayerFacingDirection.Right;
     }
 
     void FixedUpdate()
@@ -42,6 +56,8 @@ public class PlayerController : MonoBehaviour
             Vector2 movementDirection = _moveInput;
             Vector2 newPosition = _rigidbody2D.position + movementDirection * _moveSpeed * Time.fixedDeltaTime;
             _rigidbody2D.MovePosition(newPosition);
+
+            _playerFacingDirection = _moveInput.x >= 0.0f ? PlayerFacingDirection.Right : PlayerFacingDirection.Left;
         }
 
         // Update Look
@@ -76,6 +92,19 @@ public class PlayerController : MonoBehaviour
                 float rotateAngle = Vector2.Angle(Vector2.up, dirPlayerToMousePos) * flipValue;
                 _gunRotationPoint.rotation = Quaternion.Euler(0.0f, 0.0f, rotateAngle);
             }
+        }
+
+        // Update facing direction
+        UpdatePlayerSpriteFacingDirection();
+    }
+
+    void UpdatePlayerSpriteFacingDirection()
+    {
+        switch(_playerFacingDirection)
+        {
+            case PlayerFacingDirection.Right: _spriteRenderer.flipX = false; break;
+            case PlayerFacingDirection.Left: _spriteRenderer.flipX = true; break;
+            default: break;
         }
     }
 
