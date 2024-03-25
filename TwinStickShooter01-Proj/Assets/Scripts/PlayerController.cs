@@ -6,20 +6,21 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] float _moveSpeed;
     [SerializeField] Transform _gunRotationPoint;
+    [SerializeField] Transform _gunFirepoint;
 
     // Player input values
     Vector2 _moveInput;
     Vector2 _lookInput;
     Vector2 _mouseLookPosition;
 
-    Rigidbody2D _rigidBody2D;
+    Rigidbody2D _rigidbody2D;
     Camera _mainCamera;
 
     bool _useMouseLook = false;
 
     void Start()
     {
-        _rigidBody2D = GetComponent<Rigidbody2D>();
+        _rigidbody2D = GetComponent<Rigidbody2D>();
         _mainCamera = Camera.main;
     }
 
@@ -29,8 +30,8 @@ public class PlayerController : MonoBehaviour
         if(!_moveInput.Equals(Vector2.zero))
         {
             Vector2 movementDirection = _moveInput;
-            Vector2 newPosition = _rigidBody2D.position + movementDirection * _moveSpeed * Time.fixedDeltaTime;
-            _rigidBody2D.MovePosition(newPosition);
+            Vector2 newPosition = _rigidbody2D.position + movementDirection * _moveSpeed * Time.fixedDeltaTime;
+            _rigidbody2D.MovePosition(newPosition);
         }
 
         // Update Look
@@ -46,7 +47,7 @@ public class PlayerController : MonoBehaviour
             if(_useMouseLook)
             {
                 // Get the direction from the player character to the mouse position
-                Vector2 dirPlayerToMousePos = (_mouseLookPosition - _rigidBody2D.position).normalized;
+                Vector2 dirPlayerToMousePos = (_mouseLookPosition - _rigidbody2D.position).normalized;
 
                 Vector3 cross = Vector3.Cross(Vector2.up, dirPlayerToMousePos);
                 float flipValue = cross.z < 0.0f ? -1.0f : 1.0f;
@@ -87,6 +88,7 @@ public class PlayerController : MonoBehaviour
 
     void OnFire(InputValue inputValue)
     {
-        Debug.Log("OnFire - " + gameObject.name);
+        // Always fire the first bullet straight in front of the barrel
+        ProjectileController.Instance.SpawnProjectile(_gunFirepoint.position, _gunRotationPoint.rotation);
     }
 }
