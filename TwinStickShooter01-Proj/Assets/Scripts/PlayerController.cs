@@ -4,17 +4,11 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(Collider2D), typeof(Rigidbody2D))]
 public class PlayerController : MonoBehaviour
 {
+    // ---------------------------------------------------
+    [Header("Player Movement")]
+
     [Tooltip("How quickly the player moves")]
     [SerializeField] float _moveSpeed;
-
-    [Tooltip("Projectile weapons will rotate around this point when aiming")]
-    [SerializeField] Transform _projectileWeaponRotationPoint;
-
-    [Tooltip("If enabled, the player's projectile weapon will keep firing as long as the right stick is held in a direction")]
-    [SerializeField] bool _rightStickContinuousFire = true;
-
-    [Tooltip("The player's currently selected weapon")]
-    [SerializeField] WeaponBase _currentWeapon;
 
     [Tooltip("How long the player stays in its dash state")]
     [SerializeField] float _dashTime;
@@ -22,9 +16,37 @@ public class PlayerController : MonoBehaviour
     [Tooltip("How quickly the player moves while dashing")]
     [SerializeField] float _dashSpeed;
 
+    // ---------------------------------------------------
+    [Header("Projectile Weapon")]
+
+    [Tooltip("The player's currently selected projectile weapon")]
+    [SerializeField] WeaponBase _currentWeapon;
+
+    [Tooltip("Projectile weapons will rotate around this point when aiming")]
+    [SerializeField] Transform _projectileWeaponRotationPoint;
+
+    [Tooltip("If enabled, the player's projectile weapon will keep firing as long as the right stick is held in a direction")]
+    [SerializeField] bool _rightStickContinuousFire = true;
+
+    // ---------------------------------------------------
+    [Header("Melee Weapon")]
+
+    [Tooltip("The player's currently selected melee weapon")]
+    [SerializeField] WeaponMeleeBase _currentMeleeWeapon;
+
+    [ Tooltip("Melee weapons will rotate around this point. Note that this only affects the facing direction.")]
+    [SerializeField] Transform _meleeWeaponRotationPoint;
+
+    // ---------------------------------------------------
     [Header("Satellite Weapon")]
+
+    [Tooltip("The player's currently selected satellite weapon")]
     [SerializeField] SatelliteWeapon _satelliteWeapon;
+
+    [Tooltip("Whether to enabled or disable player satellite weapons")]
     [SerializeField] bool _enableSatelliteWeapon;
+
+    // ---------------------------------------------------
 
     // Player input values
     Vector2 _moveInput;
@@ -73,6 +95,9 @@ public class PlayerController : MonoBehaviour
         // Enable/Disable Satellite Weapon and initialize it with this player as the owner
         _satelliteWeapon.SetActive(_enableSatelliteWeapon);
         _satelliteWeapon.Init(_rigidbody2D);
+
+        // TEMP: Disable melee weapon for the current commit
+        _currentMeleeWeapon.gameObject.SetActive(false);
     }
 
     void FixedUpdate()
@@ -127,7 +152,7 @@ public class PlayerController : MonoBehaviour
                     FireProjectileFromSatelliteWeapon();
                     _timeSinceLastShot = 0.0f;
                 }
-            }
+            }   
         }
         else
         {
@@ -151,6 +176,9 @@ public class PlayerController : MonoBehaviour
 
         // Update gun facing direction
         UpdateGunSpriteFacingDirection();
+
+        // TEMP / TEST - Set the melee weapon rotation to match the projectile weapon rotation
+        _meleeWeaponRotationPoint.rotation = _projectileWeaponRotationPoint.rotation;
     }
 
     void UpdatePlayerSpriteFacingDirection()
@@ -167,8 +195,6 @@ public class PlayerController : MonoBehaviour
     {
         switch(_gunFacingDirection)
         {
-            // case SpriteFacingDirection.Right: _gunSpriteRenderer.flipY = false; break;
-            // case SpriteFacingDirection.Left: _gunSpriteRenderer.flipY = true; break;
             case SpriteFacingDirection.Right: _currentWeapon.SpriteRenderer.flipY = false; break;
             case SpriteFacingDirection.Left: _currentWeapon.SpriteRenderer.flipY = true; break;
             default: break;
