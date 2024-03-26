@@ -1,16 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D), typeof(Collider2D))]
 public abstract class ProjectileBase : MonoBehaviour
 {
-    [Header("ProjectileBase Fields")]
-    [SerializeField] float _moveSpeed; // RKS TODO: Should be injected from the firing weapon
-    [SerializeField] float _lifetimeSeconds; // RKS TODO: Should be injected from the firing weapon
-
     Rigidbody2D _rigidbody2D;
+    float _moveSpeed;
+    float _lifetimeSeconds;
     float _timeAlive;
+
+    public void Init(float moveSpeed, float lifetimeSeconds)
+    {
+        _moveSpeed = moveSpeed;
+        _lifetimeSeconds = lifetimeSeconds;
+    }
 
     void Start()
     {
@@ -19,12 +21,12 @@ public abstract class ProjectileBase : MonoBehaviour
 
         if(Mathf.Approximately(_moveSpeed, 0.0f))
         {
-            Debug.LogWarning(GetType().Name + ".Start - _movementSpeed is zero (which means it likely has not been set in the Prefab");
+            Debug.LogWarning(GetType().Name + ".Start - _movementSpeed is zero (which means it likely has not been set in the Weapon");
         }
 
         if(Mathf.Approximately(_lifetimeSeconds, 0.0f))
         {
-            Debug.LogWarning(GetType().Name + ".Start - _lifeTimeSeconds is zero (which means it likely has not been set in the Prefab");
+            Debug.LogWarning(GetType().Name + ".Start - _lifeTimeSeconds is zero (which means it likely has not been set in the Weapon");
         }
     }
 

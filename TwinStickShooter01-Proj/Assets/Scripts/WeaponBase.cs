@@ -8,6 +8,7 @@ public abstract class WeaponBase : MonoBehaviour
     [SerializeField] float _projectileShotsPerSecond;
     [SerializeField] Transform _firePoint;
     [SerializeField] float _projectileSpeed;
+    [SerializeField] float _projectileLifetime;
 
     public SpriteRenderer SpriteRenderer { get; private set; }
 
@@ -23,8 +24,9 @@ public abstract class WeaponBase : MonoBehaviour
     {
         // RKS TODO: Allocate references on Start for pooling
 
-        // Fire the projectile from the weapon
+        // Fire the projectile from the weapon and initialize its stats
         ProjectileBase newProjectile = GameObject.Instantiate(_projectilePrefab, _firePoint.position, projectileRotation);
+        newProjectile.Init(_projectileSpeed, _projectileLifetime);
 
         // Play the fire sound
         AudioManager.Instance.PlaySound(_projectileFireSfx);
