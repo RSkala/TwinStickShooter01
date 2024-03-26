@@ -8,11 +8,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Transform _projectileWeaponRotationPoint;
     [SerializeField] bool _rightStickContinuousFire = true;
     [SerializeField] WeaponBase _currentWeapon;
+    [SerializeField] float _dashTime;
+    [SerializeField] float _dashSpeed;
 
     // Player input values
     Vector2 _moveInput;
     Vector2 _lookInput;
     Vector2 _mouseLookPosition;
+    Vector2 _dashInput;
 
     Rigidbody2D _rigidbody2D;
     SpriteRenderer _spriteRenderer;
@@ -22,6 +25,10 @@ public class PlayerController : MonoBehaviour
     bool _useMouseLook = false;
     SpriteFacingDirection _playerFacingDirection = SpriteFacingDirection.Invalid;
     SpriteFacingDirection _gunFacingDirection = SpriteFacingDirection.Invalid;
+
+    // Dash values
+    bool _isDashing = false;
+    float _dashTimeElapsed;
 
     enum SpriteFacingDirection
     {
@@ -51,6 +58,24 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
+        // Update Dash
+        if(_isDashing)
+        {
+            _dashTimeElapsed += Time.fixedDeltaTime;
+            if(_dashTimeElapsed >= _dashTime)
+            {
+                _isDashing = false;
+            }
+
+            // Continue moving in the direction the player input when dash was activated 
+            Vector2 movementDirection = _dashInput;
+            Vector2 newPosition = _rigidbody2D.position + movementDirection * _dashSpeed * Time.fixedDeltaTime;
+            _rigidbody2D.MovePosition(newPosition);
+
+            // No more movement or look updates while dashing
+            return;
+        }
+
         // Update Movement
         if(!_moveInput.Equals(Vector2.zero))
         {
@@ -168,8 +193,26 @@ public class PlayerController : MonoBehaviour
 
     void OnFire(InputValue inputValue)
     {
+        // Do not allow the player to fire while dashing
+        if(_isDashing)
+        {
+            return;
+        }
+
         // Always fire the first bullet straight in front of the barrel
-        //ProjectileController.Instance.SpawnProjectile(_gunFirepoint.position, _gunRotationPoint.rotation);
         _currentWeapon.FireProjectile(_projectileWeaponRotationPoint.rotation);
+    }
+
+    void OnDash(InputValue inputValue)
+    {
+        // Only allow dashing if the player has some movement input
+        if(!_moveInput.Equals(Vector2.zero))
+        {
+            // Use the player's current movement input to use for the dash input
+            _dashInput = _moveInput;
+            _isDashing = true;
+            _dashTimeElapsed = 0.0f;
+            AudioManager.Instance.PlaySound(AudioManager.SFX.Dash);
+        }
     }
 }

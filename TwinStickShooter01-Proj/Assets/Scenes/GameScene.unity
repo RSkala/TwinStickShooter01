@@ -1012,6 +1012,8 @@ MonoBehaviour:
   _projectileWeaponRotationPoint: {fileID: 1724216170}
   _rightStickContinuousFire: 1
   _currentWeapon: {fileID: 2057158067}
+  _dashTime: 0.125
+  _dashSpeed: 4
 --- !u!1 &1095528798
 GameObject:
   m_ObjectHideFlags: 0
@@ -1374,6 +1376,12 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 8600d5583d28b4e0d98cac1f6aec71ce, type: 3}
   - {fileID: 8300000, guid: 41bf7c24fae8747e2863cc810e4bb663, type: 3}
   - {fileID: 8300000, guid: 5aba6840bd8664dc8bab9c647dd0002b, type: 3}
+  _dashSoundClips:
+  - {fileID: 8300000, guid: 5206af415e66042c2bdfd48f1900533c, type: 3}
+  - {fileID: 8300000, guid: 16db465d0623642eeb3fb14b332cfabe, type: 3}
+  - {fileID: 8300000, guid: 7f1dee236d3cf426a8f924c64dbd9932, type: 3}
+  - {fileID: 8300000, guid: 22c5a2783034a439c8773568a01b6f54, type: 3}
+  - {fileID: 8300000, guid: 877df615a3da844118c0511e6bd49440, type: 3}
 --- !u!1 &1714402738
 GameObject:
   m_ObjectHideFlags: 0
@@ -1580,6 +1588,8 @@ MonoBehaviour:
   _projectileWeaponRotationPoint: {fileID: 501097956}
   _rightStickContinuousFire: 1
   _currentWeapon: {fileID: 0}
+  _dashTime: 0
+  _dashSpeed: 0
 --- !u!114 &1772141502
 MonoBehaviour:
   m_ObjectHideFlags: 0
