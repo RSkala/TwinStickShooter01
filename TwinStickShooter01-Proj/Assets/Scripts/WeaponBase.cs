@@ -13,6 +13,9 @@ public abstract class WeaponBase : MonoBehaviour
     public SpriteRenderer SpriteRenderer { get; private set; }
 
     public float FireRate { get; protected set; }
+    public ProjectileBase ProjectilePrefab => _projectilePrefab;
+    public float ProjectileSpeed => _projectileSpeed;
+    public float ProjectileLifetime => _projectileLifetime;
 
     protected virtual void Start()
     {

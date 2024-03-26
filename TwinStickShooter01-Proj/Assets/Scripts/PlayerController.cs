@@ -22,6 +22,10 @@ public class PlayerController : MonoBehaviour
     [Tooltip("How quickly the player moves while dashing")]
     [SerializeField] float _dashSpeed;
 
+    [Header("Satellite Weapon")]
+    [SerializeField] SatelliteWeapon _satelliteWeapon;
+    [SerializeField] bool _enableSatelliteWeapon;
+
     // Player input values
     Vector2 _moveInput;
     Vector2 _lookInput;
@@ -65,6 +69,10 @@ public class PlayerController : MonoBehaviour
 
         // Default gun as pointing to the right
         _gunFacingDirection = SpriteFacingDirection.Right;
+
+        // Enable/Disable Satellite Weapon and initialize it with this player as the owner
+        _satelliteWeapon.SetActive(_enableSatelliteWeapon);
+        _satelliteWeapon.Init(_rigidbody2D);
     }
 
     void FixedUpdate()
@@ -116,6 +124,7 @@ public class PlayerController : MonoBehaviour
                 if(_timeSinceLastShot >= _currentWeapon.FireRate)
                 {
                     _currentWeapon.FireProjectile(_projectileWeaponRotationPoint.rotation);
+                    FireProjectileFromSatelliteWeapon();
                     _timeSinceLastShot = 0.0f;
                 }
             }
@@ -212,6 +221,9 @@ public class PlayerController : MonoBehaviour
 
         // Always fire the first bullet straight in front of the barrel
         _currentWeapon.FireProjectile(_projectileWeaponRotationPoint.rotation);
+
+        // Fire projectile from Satellite Weapon
+        FireProjectileFromSatelliteWeapon();
     }
 
     void OnDash(InputValue inputValue)
@@ -224,6 +236,16 @@ public class PlayerController : MonoBehaviour
             _isDashing = true;
             _dashTimeElapsed = 0.0f;
             AudioManager.Instance.PlaySound(AudioManager.SFX.Dash);
+        }
+    }
+
+    void FireProjectileFromSatelliteWeapon()
+    {
+        // Fire a bullet from the satellite weapon, if enabled. Do not play a sound, as a sound was already played when the weapon was fired.
+        if(_satelliteWeapon.IsActive)
+        {
+            ProjectileBase newProjectile = GameObject.Instantiate(_currentWeapon.ProjectilePrefab, _satelliteWeapon.GetPosition, _projectileWeaponRotationPoint.rotation);
+            newProjectile.Init(_currentWeapon.ProjectileSpeed, _currentWeapon.ProjectileLifetime);
         }
     }
 }
