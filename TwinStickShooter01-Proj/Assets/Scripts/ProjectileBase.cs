@@ -6,8 +6,8 @@ using UnityEngine;
 public abstract class ProjectileBase : MonoBehaviour
 {
     [Header("ProjectileBase Fields")]
-    [SerializeField] float _moveSpeed;
-    [SerializeField] float _lifetimeSeconds;
+    [SerializeField] float _moveSpeed; // RKS TODO: Should be injected from the firing weapon
+    [SerializeField] float _lifetimeSeconds; // RKS TODO: Should be injected from the firing weapon
 
     Rigidbody2D _rigidbody2D;
     float _timeAlive;

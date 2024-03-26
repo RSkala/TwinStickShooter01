@@ -1,3 +1,4 @@
+using System.Reflection;
 using UnityEngine;
 
 public class AudioManager : MonoBehaviour
@@ -12,6 +13,7 @@ public class AudioManager : MonoBehaviour
 
     public enum SFX
     {
+        None,
         PistolFire,
         ArrowFire,
     }
@@ -20,7 +22,7 @@ public class AudioManager : MonoBehaviour
     {
         if(Instance != null)
         {
-            Debug.LogError("AudioManager.Awake - Singleton Instance already exists");
+            Debug.LogError(GetType().ToString() + "." + MethodBase.GetCurrentMethod().Name + " - Singleton Instance already exists!");
             Destroy(Instance.gameObject);
         }
         Instance = this;

@@ -5,11 +5,12 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] float _moveSpeed;
-    [SerializeField] Transform _gunRotationPoint;
-    [SerializeField] Transform _gunFirepoint;
+    [SerializeField] Transform _gunRotationPoint; // RKS: Not yet sure how to handle this...
+    [SerializeField] Transform _gunFirepoint; // MARKED FOR DEATH -- using currentWeapon instead
     [SerializeField] SpriteRenderer _gunSpriteRenderer; // RKS TODO: Move to more appropriate place
     [SerializeField] bool _rightStickContinuousFire = true;
-    [SerializeField] float _shotsPerSecond;
+    [SerializeField] float _shotsPerSecond; // MARKED FOR DEATH, using currentWeapon instead
+    [SerializeField] WeaponBase _currentWeapon;
 
     // Player input values
     Vector2 _moveInput;
@@ -21,7 +22,7 @@ public class PlayerController : MonoBehaviour
 
     Camera _mainCamera;
     float _timeSinceLastShot;
-    float _continuousFireRate;
+    //float _continuousFireRate;
     bool _useMouseLook = false;
     SpriteFacingDirection _playerFacingDirection = SpriteFacingDirection.Invalid;
     SpriteFacingDirection _gunFacingDirection = SpriteFacingDirection.Invalid;
@@ -33,7 +34,8 @@ public class PlayerController : MonoBehaviour
         Left
     }
 
-    void ResetTimeSinceLastShot() { _timeSinceLastShot = _continuousFireRate; }
+    //void ResetTimeSinceLastShot() { _timeSinceLastShot = _continuousFireRate; }
+    void ResetTimeSinceLastShot() { _timeSinceLastShot = _currentWeapon.FireRate; }
 
     void Start()
     {
@@ -41,7 +43,8 @@ public class PlayerController : MonoBehaviour
         _spriteRenderer = GetComponent<SpriteRenderer>();
 
         _mainCamera = Camera.main;
-        _continuousFireRate = 1.0f / _shotsPerSecond;
+        //_continuousFireRate = _currentWeapon.FireRate;
+        //_continuousFireRate = 1.0f / _shotsPerSecond;
 
         // Initialize "time since last shot" to the fire rate, so there is no delay on the very first shot
         ResetTimeSinceLastShot();
@@ -81,11 +84,13 @@ public class PlayerController : MonoBehaviour
             if(_rightStickContinuousFire)
             {
                 _timeSinceLastShot += Time.fixedDeltaTime;
-                if(_timeSinceLastShot >= _continuousFireRate)
+                //if(_timeSinceLastShot >= _continuousFireRate)
+                if(_timeSinceLastShot >= _currentWeapon.FireRate)
                 {
-                    ProjectileController.Instance.SpawnProjectile(_gunFirepoint.position, _gunRotationPoint.rotation);
+                    _currentWeapon.FireProjectile(_gunRotationPoint.rotation);
+                    //ProjectileController.Instance.SpawnProjectile(_gunFirepoint.position, _gunRotationPoint.rotation);
                     //AudioManager.Instance.PlaySound(AudioManager.SFX.PistolFire);
-                    AudioManager.Instance.PlaySound(AudioManager.SFX.ArrowFire);
+                    //AudioManager.Instance.PlaySound(AudioManager.SFX.ArrowFire);
                     _timeSinceLastShot = 0.0f;
                 }
             }
@@ -128,8 +133,10 @@ public class PlayerController : MonoBehaviour
     {
         switch(_gunFacingDirection)
         {
-            case SpriteFacingDirection.Right: _gunSpriteRenderer.flipY = false; break;
-            case SpriteFacingDirection.Left: _gunSpriteRenderer.flipY = true; break;
+            // case SpriteFacingDirection.Right: _gunSpriteRenderer.flipY = false; break;
+            // case SpriteFacingDirection.Left: _gunSpriteRenderer.flipY = true; break;
+            case SpriteFacingDirection.Right: _currentWeapon.SpriteRenderer.flipY = false; break;
+            case SpriteFacingDirection.Left: _currentWeapon.SpriteRenderer.flipY = true; break;
             default: break;
         }
     }
@@ -173,6 +180,7 @@ public class PlayerController : MonoBehaviour
     void OnFire(InputValue inputValue)
     {
         // Always fire the first bullet straight in front of the barrel
-        ProjectileController.Instance.SpawnProjectile(_gunFirepoint.position, _gunRotationPoint.rotation);
+        //ProjectileController.Instance.SpawnProjectile(_gunFirepoint.position, _gunRotationPoint.rotation);
+        _currentWeapon.FireProjectile(_gunRotationPoint.rotation);
     }
 }

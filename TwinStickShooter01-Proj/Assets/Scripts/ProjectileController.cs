@@ -10,15 +10,12 @@ public class ProjectileController : MonoBehaviour
 
     void Awake()
     {
-        if(Instance != null && Instance != this)
+        if(Instance != null)
         {
-            Debug.LogWarning(GetType().ToString() + "." + MethodBase.GetCurrentMethod().Name + " - Instance already exists!");
+            Debug.LogError(GetType().ToString() + "." + MethodBase.GetCurrentMethod().Name + " - Instance already exists!");
             Destroy(Instance.gameObject);
         }
-        else
-        {
-            Instance = this;
-        }
+        Instance = this;
     }
 
     void Start()
