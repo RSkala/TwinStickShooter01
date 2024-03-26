@@ -1,15 +1,11 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Serialization;
 
 [RequireComponent(typeof(Collider2D), typeof(Rigidbody2D))]
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] float _moveSpeed;
-
-    [FormerlySerializedAs("_gunRotationPoint")]
     [SerializeField] Transform _projectileWeaponRotationPoint;
-
     [SerializeField] bool _rightStickContinuousFire = true;
     [SerializeField] WeaponBase _currentWeapon;
 
