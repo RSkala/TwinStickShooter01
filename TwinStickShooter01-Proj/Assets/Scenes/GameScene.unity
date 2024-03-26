@@ -1743,6 +1743,10 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 7f1dee236d3cf426a8f924c64dbd9932, type: 3}
   - {fileID: 8300000, guid: 22c5a2783034a439c8773568a01b6f54, type: 3}
   - {fileID: 8300000, guid: 877df615a3da844118c0511e6bd49440, type: 3}
+  _meleeAttackClips:
+  - {fileID: 8300000, guid: 54e99b1b9b26e489094415fa4e95ca73, type: 3}
+  - {fileID: 8300000, guid: 1415c467fd45347be93816d425052d5f, type: 3}
+  - {fileID: 8300000, guid: 6ce5d060818c940e686c2b1d112486bc, type: 3}
 --- !u!1 &1714402738
 GameObject:
   m_ObjectHideFlags: 0
@@ -3020,6 +3024,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f3e4c8cf013d44db92c967ed678daf7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  eventMeleeAttackStart:
+    m_PersistentCalls:
+      m_Calls: []
+  eventMeleeAttackEnd:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

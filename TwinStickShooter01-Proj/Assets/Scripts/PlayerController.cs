@@ -147,7 +147,8 @@ public class PlayerController : MonoBehaviour
             _gunFacingDirection = cross.z >= 0.0f ? SpriteFacingDirection.Left : SpriteFacingDirection.Right;
 
             // If "Right Stick Continuous Fire" is enabled, then fire bullets as long as the right stick is held in any direction (e.g. like Smash TV)
-            if(_rightStickContinuousFire)
+            // Do not fire if melee attacking
+            if(_rightStickContinuousFire && !_isMeleeAttacking)
             {
                 _timeSinceLastShot += Time.fixedDeltaTime;
                 if(_timeSinceLastShot >= _currentWeapon.FireRate)
@@ -303,12 +304,13 @@ public class PlayerController : MonoBehaviour
 
     void OnMeleeAttackEnd()
     {
-        Debug.Log(GetType().ToString() + ".OnMeleeAttackEnd - " + gameObject.name);
-
         // show the projectile weapon sprite
         _currentWeapon.ShowProjectileWeaponSprite();
 
         // Mark the player as no longer melee attacking
         _isMeleeAttacking = false;
+
+        // Reset time since last shot so the player can immediately fire again
+        ResetTimeSinceLastShot();
     }
 }

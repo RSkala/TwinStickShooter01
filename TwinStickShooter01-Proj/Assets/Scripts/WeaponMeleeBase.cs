@@ -26,7 +26,7 @@ public abstract class WeaponMeleeBase : MonoBehaviour
 
     void MeleeAttackAnimStart()
     {
-        Debug.Log(GetType().ToString() + ".MeleeAttackAnimStart - " + gameObject.name);
+        AudioManager.Instance.PlaySound(AudioManager.SFX.MeleeAttack);
     }
 
     void MeleeAttackAnimEnd()
