@@ -1176,7 +1176,7 @@ MonoBehaviour:
   _moveSpeed: 1
   _projectileWeaponRotationPoint: {fileID: 1724216170}
   _rightStickContinuousFire: 1
-  _currentWeapon: {fileID: 2057158067}
+  _currentWeapon: {fileID: 1714402740}
   _dashTime: 0.125
   _dashSpeed: 4
   _satelliteWeapon: {fileID: 612520047}
@@ -1565,7 +1565,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1714402739
 Transform:
   m_ObjectHideFlags: 0
@@ -2529,7 +2529,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2057158066
 Transform:
   m_ObjectHideFlags: 0
