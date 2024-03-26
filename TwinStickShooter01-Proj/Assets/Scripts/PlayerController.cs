@@ -4,11 +4,22 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(Collider2D), typeof(Rigidbody2D))]
 public class PlayerController : MonoBehaviour
 {
+    [Tooltip("How quickly the player moves")]
     [SerializeField] float _moveSpeed;
+
+    [Tooltip("Projectile weapons will rotate around this point when aiming")]
     [SerializeField] Transform _projectileWeaponRotationPoint;
+
+    [Tooltip("If enabled, the player's projectile weapon will keep firing as long as the right stick is held in a direction")]
     [SerializeField] bool _rightStickContinuousFire = true;
+
+    [Tooltip("The player's currently selected weapon")]
     [SerializeField] WeaponBase _currentWeapon;
+
+    [Tooltip("How long the player stays in its dash state")]
     [SerializeField] float _dashTime;
+
+    [Tooltip("How quickly the player moves while dashing")]
     [SerializeField] float _dashSpeed;
 
     // Player input values
