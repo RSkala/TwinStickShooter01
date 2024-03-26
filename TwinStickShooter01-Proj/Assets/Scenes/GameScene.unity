@@ -1436,7 +1436,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1724216170}
   m_Layer: 0
-  m_Name: gun_rotation_offset
+  m_Name: projectile_weapon_rotation_offset
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

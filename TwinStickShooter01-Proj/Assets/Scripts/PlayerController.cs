@@ -1,11 +1,15 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 [RequireComponent(typeof(Collider2D), typeof(Rigidbody2D))]
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] float _moveSpeed;
-    [SerializeField] Transform _gunRotationPoint; // RKS: Not yet sure how to handle this...
+
+    [FormerlySerializedAs("_gunRotationPoint")]
+    [SerializeField] Transform _projectileWeaponRotationPoint;
+
     [SerializeField] bool _rightStickContinuousFire = true;
     [SerializeField] WeaponBase _currentWeapon;
 
@@ -68,7 +72,7 @@ public class PlayerController : MonoBehaviour
             Vector3 cross = Vector3.Cross(Vector2.up, _lookInput);
             float flipValue = cross.z < 0.0f ? -1.0f : 1.0f;
             float rotateAngle = Vector2.Angle(Vector2.up, _lookInput) * flipValue;
-            _gunRotationPoint.rotation = Quaternion.Euler(0.0f, 0.0f, rotateAngle);
+            _projectileWeaponRotationPoint.rotation = Quaternion.Euler(0.0f, 0.0f, rotateAngle);
 
             // Update the gun facing based on the player's look input direction
             _gunFacingDirection = cross.z >= 0.0f ? SpriteFacingDirection.Left : SpriteFacingDirection.Right;
@@ -79,7 +83,7 @@ public class PlayerController : MonoBehaviour
                 _timeSinceLastShot += Time.fixedDeltaTime;
                 if(_timeSinceLastShot >= _currentWeapon.FireRate)
                 {
-                    _currentWeapon.FireProjectile(_gunRotationPoint.rotation);
+                    _currentWeapon.FireProjectile(_projectileWeaponRotationPoint.rotation);
                     _timeSinceLastShot = 0.0f;
                 }
             }
@@ -94,7 +98,7 @@ public class PlayerController : MonoBehaviour
                 Vector3 cross = Vector3.Cross(Vector2.up, dirPlayerToMousePos);
                 float flipValue = cross.z < 0.0f ? -1.0f : 1.0f;
                 float rotateAngle = Vector2.Angle(Vector2.up, dirPlayerToMousePos) * flipValue;
-                _gunRotationPoint.rotation = Quaternion.Euler(0.0f, 0.0f, rotateAngle);
+                _projectileWeaponRotationPoint.rotation = Quaternion.Euler(0.0f, 0.0f, rotateAngle);
 
                 // Update the gun facing based on the player's mouse cursor direction
                 _gunFacingDirection = cross.z >= 0.0f ? SpriteFacingDirection.Left : SpriteFacingDirection.Right;
@@ -170,6 +174,6 @@ public class PlayerController : MonoBehaviour
     {
         // Always fire the first bullet straight in front of the barrel
         //ProjectileController.Instance.SpawnProjectile(_gunFirepoint.position, _gunRotationPoint.rotation);
-        _currentWeapon.FireProjectile(_gunRotationPoint.rotation);
+        _currentWeapon.FireProjectile(_projectileWeaponRotationPoint.rotation);
     }
 }
