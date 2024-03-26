@@ -10,7 +10,7 @@ public abstract class WeaponMeleeBase : MonoBehaviour
 
     protected virtual void Awake()
     {
-        Debug.Log(GetType().ToString() + ".Awake - " + gameObject.name);
+        
     }
 
     protected virtual void Start()
