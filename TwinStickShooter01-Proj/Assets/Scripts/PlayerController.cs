@@ -182,8 +182,29 @@ public class PlayerController : MonoBehaviour
         // Update gun facing direction
         UpdateGunSpriteFacingDirection();
 
-        // TEMP / TEST - Set the melee weapon rotation to match the projectile weapon rotation
-        _meleeWeaponRotationPoint.rotation = _projectileWeaponRotationPoint.rotation;
+        // Set the melee weapon rotation depending on how the player is pressing their thumbsticks
+        // Priority will go to the right thumbstick aiming. Otherwise, will use the movement direction.
+        if(!_lookInput.Equals(Vector2.zero))
+        {
+            // The user is pressing the right thumbstick in a direction.
+            _meleeWeaponRotationPoint.rotation = _projectileWeaponRotationPoint.rotation;
+        }
+        else
+        {
+            // The user is NOT pressing the right thumbstick. Use the player's current movement direction
+            if(!_moveInput.Equals(Vector2.zero))
+            {
+                // Do not allow the player to change the direction of the melee attack WHILE melee attacking.
+                // Note the rotation is updated when moving but not melee attacking, so the rotation will be correct.
+                if(!_isMeleeAttacking)
+                {
+                    Vector3 cross = Vector3.Cross(Vector2.up, _moveInput);
+                    float flipValue = cross.z < 0.0f ? -1.0f : 1.0f;
+                    float rotateAngle = Vector2.Angle(Vector2.up, _moveInput) * flipValue;
+                    _meleeWeaponRotationPoint.rotation = Quaternion.Euler(0.0f, 0.0f, rotateAngle);
+                }
+            }
+        }
     }
 
     void UpdatePlayerSpriteFacingDirection()
