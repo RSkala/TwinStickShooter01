@@ -67,6 +67,9 @@ public class PlayerController : MonoBehaviour
     bool _isDashing = false;
     float _dashTimeElapsed;
 
+    // Melee values
+    bool _isMeleeAttacking = false;
+
     enum SpriteFacingDirection
     {
         Invalid,
@@ -96,8 +99,9 @@ public class PlayerController : MonoBehaviour
         _satelliteWeapon.SetActive(_enableSatelliteWeapon);
         _satelliteWeapon.Init(_rigidbody2D);
 
-        // TEMP: Disable melee weapon for the current commit
-        _currentMeleeWeapon.gameObject.SetActive(false);
+        // Start the melee weapon disabled and listen for the melee attack end animation event
+        _currentMeleeWeapon.SetActive(false);
+        _currentMeleeWeapon.eventMeleeAttackEnd.AddListener(OnMeleeAttackEnd);
     }
 
     void FixedUpdate()
@@ -245,6 +249,12 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
+        // Do not allow the player to fire while melee attacking
+        if(_isMeleeAttacking)
+        {
+            return;
+        }
+
         // Always fire the first bullet straight in front of the barrel
         _currentWeapon.FireProjectile(_projectileWeaponRotationPoint.rotation);
 
@@ -273,5 +283,32 @@ public class PlayerController : MonoBehaviour
             ProjectileBase newProjectile = GameObject.Instantiate(_currentWeapon.ProjectilePrefab, _satelliteWeapon.GetPosition, _projectileWeaponRotationPoint.rotation);
             newProjectile.Init(_currentWeapon.ProjectileSpeed, _currentWeapon.ProjectileLifetime);
         }
+    }
+
+    void OnMelee(InputValue inputValue)
+    {
+        // Do not allow the player to swing the sword while dashing or already melee attacking
+        if(_isDashing || _isMeleeAttacking)
+        {
+            return;
+        }
+
+        // Hide the projectile weapon sprite
+        _currentWeapon.HideProjectileWeaponSprite();
+
+        // Unhide the currently selected melee weapon and mark the player as melee attacking
+        _currentMeleeWeapon.SetActive(true);
+        _isMeleeAttacking = true;
+    }
+
+    void OnMeleeAttackEnd()
+    {
+        Debug.Log(GetType().ToString() + ".OnMeleeAttackEnd - " + gameObject.name);
+
+        // show the projectile weapon sprite
+        _currentWeapon.ShowProjectileWeaponSprite();
+
+        // Mark the player as no longer melee attacking
+        _isMeleeAttacking = false;
     }
 }

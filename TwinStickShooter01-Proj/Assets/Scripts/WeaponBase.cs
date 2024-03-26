@@ -34,4 +34,7 @@ public abstract class WeaponBase : MonoBehaviour
         // Play the fire sound
         AudioManager.Instance.PlaySound(_projectileFireSfx);
     }
+
+    public void ShowProjectileWeaponSprite() { SpriteRenderer.enabled = true; }
+    public void HideProjectileWeaponSprite() { SpriteRenderer.enabled = false; }
 }
