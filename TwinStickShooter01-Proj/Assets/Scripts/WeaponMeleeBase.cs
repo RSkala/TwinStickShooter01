@@ -37,4 +37,9 @@ public abstract class WeaponMeleeBase : MonoBehaviour
     }
 
     public void SetActive(bool active) { gameObject.SetActive(active); }
+
+    protected virtual void OnTriggerEnter2D(Collider2D other)
+    {
+        Debug.Log("OnTriggerEnter2D - " + gameObject.name + ", other: " + other.gameObject.name);
+    }
 }

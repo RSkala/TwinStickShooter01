@@ -62,7 +62,14 @@ public class EnemyBase : MonoBehaviour
             projectile.HandleCollisionWithEnemy();
         }
 
-        // RKS TODO: Check melee weapon
+        // Check melee weapon
+        //WeaponMeleeBase meleeWeapon = other.gameObject.GetComponent<WeaponMeleeBase>();
+        WeaponMeleeBase meleeWeapon = other.gameObject.GetComponentInParent<WeaponMeleeBase>(); // Currently the melee weapon component is on the rotator
+        if(meleeWeapon != null)
+        {
+            // This was a melee weapon. Kill this enemy.
+            Destroy(gameObject);
+        }
     }
 
     public virtual void SetTarget(GameObject target)
