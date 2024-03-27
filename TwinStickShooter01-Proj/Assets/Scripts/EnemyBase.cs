@@ -26,9 +26,9 @@ public class EnemyBase : MonoBehaviour
 
     }
 
-    protected virtual void OnTriggerEnter2D()
+    protected virtual void OnTriggerEnter2D(Collider2D other)
     {
-        //Debug.Log(GetType().Name + ".OnTriggerEnter - " + gameObject.name);
+        Debug.Log(GetType().Name + ".OnTriggerEnter - " + gameObject.name + ", other: " + other.gameObject.name);
 
         // TEST: Just destroy the enemy
         Destroy(gameObject);
