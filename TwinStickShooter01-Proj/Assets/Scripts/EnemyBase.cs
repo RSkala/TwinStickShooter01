@@ -50,7 +50,7 @@ public class EnemyBase : MonoBehaviour
 
     protected virtual void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log(GetType().Name + ".OnTriggerEnter - " + gameObject.name + ", other: " + other.gameObject.name);
+        //Debug.Log(GetType().Name + ".OnTriggerEnter - " + gameObject.name + ", other: " + other.gameObject.name);
 
         ProjectileBase projectile = other.gameObject.GetComponent<ProjectileBase>();
         if(projectile != null)
