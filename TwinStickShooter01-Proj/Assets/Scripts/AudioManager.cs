@@ -37,18 +37,19 @@ public class AudioManager : MonoBehaviour
     void Start()
     {
         // Create the AudioSource objects and add as chidren
-        CreateAudioSourceChild(out _pistolFireSource, "PistolFireSource");
-        CreateAudioSourceChild(out _arrowFireSource, "ArrowFireSource");
+        CreateAudioSourceChild(out _pistolFireSource, "PistolFireSource", 0.5f);
+        CreateAudioSourceChild(out _arrowFireSource, "ArrowFireSource", 0.5f);
         CreateAudioSourceChild(out _dashSoundSource, "DashSoundSource");
         CreateAudioSourceChild(out _meleeAttackSource, "MeleeAttackSource");
     }
 
-    void CreateAudioSourceChild(out AudioSource audioSource, string audioSourceName)
+    void CreateAudioSourceChild(out AudioSource audioSource, string audioSourceName, float volume = 1.0f)
     {
         GameObject audioSourceGO = new GameObject(audioSourceName);
         audioSource = audioSourceGO.AddComponent<AudioSource>();
         audioSource.playOnAwake = false;
         audioSource.transform.parent = transform;
+        audioSource.volume = volume;
     }
 
     void PlayRandomSoundFromClips(AudioSource audioSource, AudioClip[] audioClips, bool stopIfPlaying = true)
