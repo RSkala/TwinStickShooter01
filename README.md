@@ -1,10 +1,19 @@
-# TwinStickShooter01
+# RSkala Twin Stick Shooter WIP
 
-This is a work-in-progress Twin Stick shooter type game inspired by <b>SmashTV</b> and <b>Nuclear Throne</b> ... and many other Twin Stick and Rotary style shooters!<br>
+This is a very early work-in-progress Twin Stick shooter type game inspired by <b>SmashTV</b> and <b>Nuclear Throne</b> ... and many other Twin Stick and Rotary style shooters!<br>
 I am using legally purchased assets from Itch.io and Craftpix.</br>
 
-I appreciate and support all creators when I can!
+I appreciate ALL creators and support them when I can!
 
+#
+<b>WIP Screenshot</b>:
+<!--
+<img src="./Screenshots/TwinStickShooter-Prototype-Screenshot-0001.png" width=250 />
+-->
+<img src="./Screenshots/TwinStickShooter-Prototype-Screenshot-0001.png"/>
+
+#
+### Credits:
 <b>0x72 from itch.io:</b><br/>
 https://0x72.itch.io/
 
@@ -13,3 +22,4 @@ https://thetra00.itch.io/
 
 <b>CraftPix.net:</b><br/>
 https://craftpix.net/
+#
