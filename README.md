@@ -13,7 +13,7 @@ I appreciate ALL creators and support them when I can!
 <img src="./Screenshots/TwinStickShooter-Prototype-Screenshot-0001.png"/>
 
 #
-### Credits:
+### Pixel Art Credits:
 <b>0x72 from itch.io:</b><br/>
 https://0x72.itch.io/
 
