@@ -30,7 +30,15 @@ public class EnemyBase : MonoBehaviour
     {
         Debug.Log(GetType().Name + ".OnTriggerEnter - " + gameObject.name + ", other: " + other.gameObject.name);
 
-        // TEST: Just destroy the enemy
-        Destroy(gameObject);
+        ProjectileBase projectile = other.gameObject.GetComponent<ProjectileBase>();
+        if(projectile != null)
+        {
+            // This was a projectile. Kill this enemy. RKS TODO: Check instigator and damage amount
+            
+            // TEST: Just destroy the enemy
+            Destroy(gameObject);
+        }
+
+        // RKS TODO: Check melee weapon
     }
 }
