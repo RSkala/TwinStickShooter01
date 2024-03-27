@@ -11,7 +11,6 @@ public class EnemySpawner : MonoBehaviour
     void Start()
     {
         _timeSinceLastSpawn = _useRandomSpawnDelay ? Random.Range(0.0f, _timeBetweenSpawns) : 0.0f;
-        Debug.Log("_timeSinceLastSpawn: " + _timeSinceLastSpawn + " - " + gameObject.name);
     }
 
     void Update()
