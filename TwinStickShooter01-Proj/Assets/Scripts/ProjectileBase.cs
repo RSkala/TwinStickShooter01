@@ -30,7 +30,7 @@ public abstract class ProjectileBase : MonoBehaviour
         }
     }
 
-    protected virtual void Update()
+    protected virtual void FixedUpdate()
     {
         // By default, move directly forward (2D up) direction
         // Use the "Up" vector as that is actually the forward vector in Unity 2D (Note: "forward" refers to the Z direction, i.e. in the camera facing direction)
@@ -44,5 +44,11 @@ public abstract class ProjectileBase : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    public virtual void HandleCollisionWithEnemy()
+    {
+        // Just destroy the projectile
+        Destroy(gameObject);
     }
 }
