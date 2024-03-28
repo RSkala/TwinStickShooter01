@@ -5151,7 +5151,7 @@ MonoBehaviour:
     maxDepth: 0
     minNormalAngle: 0
     maxNormalAngle: 0
-  collisionOffset: 0.03
+  collisionOffset: 0.02
 --- !u!1 &1095528798
 GameObject:
   m_ObjectHideFlags: 0
