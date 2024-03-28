@@ -21,12 +21,12 @@ public abstract class ProjectileBase : MonoBehaviour
 
         if(Mathf.Approximately(_moveSpeed, 0.0f))
         {
-            Debug.LogWarning(GetType().Name + ".Start - _movementSpeed is zero (which means it likely has not been set in the Weapon");
+            Debug.LogWarning(GetType().Name + ".Start - _movementSpeed is zero (which means it likely has not been set in the Weapon or Init has not been called");
         }
 
         if(Mathf.Approximately(_lifetimeSeconds, 0.0f))
         {
-            Debug.LogWarning(GetType().Name + ".Start - _lifeTimeSeconds is zero (which means it likely has not been set in the Weapon");
+            Debug.LogWarning(GetType().Name + ".Start - _lifeTimeSeconds is zero (which means it likely has not been set in the Weapon or Init has not been called");
         }
     }
 

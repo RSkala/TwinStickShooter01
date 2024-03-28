@@ -53,6 +53,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float collisionOffset = 0.05f;
 
     // ---------------------------------------------------
+    [Header("Spread Gun")]
+    [SerializeField] SpreadGunSize _spreadGunSize = SpreadGunSize.SingleBullet;
+    [SerializeField] [Range(0.1f, 90.0f)] float _spreadGunAngle = 10.0f;
+
+    // ---------------------------------------------------
 
     // Player input values
     Vector2 _moveInput;
@@ -80,6 +85,17 @@ public class PlayerController : MonoBehaviour
     List<RaycastHit2D> _movementRaycastHitsDash = new List<RaycastHit2D>();
     List<RaycastHit2D> _movementRaycastHitsXDir = new List<RaycastHit2D>();
     List<RaycastHit2D> _movementRaycastHitsYDir = new List<RaycastHit2D>();
+
+    // Spread Gun Sizes
+    public enum SpreadGunSize
+    {
+        SingleBullet = 1,
+        ThreeBullets = 3,
+        FiveBullets = 5,
+        SevenBullets = 7,
+        NineBullets = 9,
+        ElevenBullets = 11
+    }
 
     enum SpriteFacingDirection
     {
@@ -204,7 +220,7 @@ public class PlayerController : MonoBehaviour
                 _timeSinceLastShot += Time.fixedDeltaTime;
                 if(_timeSinceLastShot >= _currentWeapon.FireRate)
                 {
-                    _currentWeapon.FireProjectile(_projectileWeaponRotationPoint.rotation);
+                    _currentWeapon.FireProjectile(_projectileWeaponRotationPoint.rotation, _spreadGunSize, _spreadGunAngle);
                     FireProjectileFromSatelliteWeapon();
                     _timeSinceLastShot = 0.0f;
                 }
@@ -328,8 +344,8 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        // Always fire the first bullet straight in front of the barrel
-        _currentWeapon.FireProjectile(_projectileWeaponRotationPoint.rotation);
+        // Fire projectile from the equipped weapon
+        _currentWeapon.FireProjectile(_projectileWeaponRotationPoint.rotation, _spreadGunSize, _spreadGunAngle);
 
         // Fire projectile from Satellite Weapon
         FireProjectileFromSatelliteWeapon();
