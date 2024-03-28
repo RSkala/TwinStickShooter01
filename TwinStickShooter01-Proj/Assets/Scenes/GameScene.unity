@@ -169,6 +169,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enemyToSpawnPrefab: {fileID: 3104775081532476301, guid: b39bb1221553c4a4aaed4482bcf25684, type: 3}
   _timeBetweenSpawns: 1.5
+  _useRandomSpawnDelay: 1
 --- !u!1 &70740448
 GameObject:
   m_ObjectHideFlags: 0
@@ -3329,6 +3330,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enemyToSpawnPrefab: {fileID: 3104775081532476301, guid: b39bb1221553c4a4aaed4482bcf25684, type: 3}
   _timeBetweenSpawns: 1.5
+  _useRandomSpawnDelay: 1
 --- !u!1 &499745892
 GameObject:
   m_ObjectHideFlags: 0
@@ -3439,6 +3441,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enemyToSpawnPrefab: {fileID: 3104775081532476301, guid: b39bb1221553c4a4aaed4482bcf25684, type: 3}
   _timeBetweenSpawns: 1.5
+  _useRandomSpawnDelay: 1
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -3616,7 +3619,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &582290406
 Transform:
   m_ObjectHideFlags: 0
@@ -5069,7 +5072,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.0000000055879354, y: -0.065042496}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -5080,7 +5083,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.16, y: 0.23}
+  m_Size: {x: 0.10513425, y: 0.062748015}
   m_EdgeRadius: 0
 --- !u!114 &1047846531
 MonoBehaviour:
@@ -5134,6 +5137,21 @@ MonoBehaviour:
   _meleeWeaponRotationPoint: {fileID: 1186067844}
   _satelliteWeapon: {fileID: 612520047}
   _enableSatelliteWeapon: 1
+  movementContactFilter:
+    useTriggers: 0
+    useLayerMask: 1
+    useDepth: 0
+    useOutsideDepth: 0
+    useNormalAngle: 0
+    useOutsideNormalAngle: 0
+    layerMask:
+      serializedVersion: 2
+      m_Bits: 256
+    minDepth: 0
+    maxDepth: 0
+    minNormalAngle: 0
+    maxNormalAngle: 0
+  collisionOffset: 0.03
 --- !u!1 &1095528798
 GameObject:
   m_ObjectHideFlags: 0
@@ -5213,6 +5231,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enemyToSpawnPrefab: {fileID: 3104775081532476301, guid: b39bb1221553c4a4aaed4482bcf25684, type: 3}
   _timeBetweenSpawns: 1.5
+  _useRandomSpawnDelay: 1
 --- !u!1 &1166428943
 GameObject:
   m_ObjectHideFlags: 0
@@ -8437,6 +8456,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enemyToSpawnPrefab: {fileID: 3104775081532476301, guid: b39bb1221553c4a4aaed4482bcf25684, type: 3}
   _timeBetweenSpawns: 1.5
+  _useRandomSpawnDelay: 1
 --- !u!1 &1420717039
 GameObject:
   m_ObjectHideFlags: 0
@@ -11236,7 +11256,8 @@ GameObject:
   - component: {fileID: 1425632680}
   - component: {fileID: 1425632682}
   - component: {fileID: 1425632681}
-  m_Layer: 0
+  - component: {fileID: 1425632683}
+  m_Layer: 8
   m_Name: Tilemap - Outer Walls
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12073,6 +12094,42 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!19719996 &1425632683
+TilemapCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1425632679}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_MaximumTileChangeCount: 1000
+  m_ExtrusionFactor: 0
+  m_UseDelaunayMesh: 0
 --- !u!1 &1485971592
 GameObject:
   m_ObjectHideFlags: 0
@@ -12390,6 +12447,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enemyToSpawnPrefab: {fileID: 3104775081532476301, guid: b39bb1221553c4a4aaed4482bcf25684, type: 3}
   _timeBetweenSpawns: 1.5
+  _useRandomSpawnDelay: 1
 --- !u!1 &1656397463
 GameObject:
   m_ObjectHideFlags: 0
@@ -13195,6 +13253,21 @@ MonoBehaviour:
   _meleeWeaponRotationPoint: {fileID: 0}
   _satelliteWeapon: {fileID: 0}
   _enableSatelliteWeapon: 0
+  movementContactFilter:
+    useTriggers: 0
+    useLayerMask: 0
+    useDepth: 0
+    useOutsideDepth: 0
+    useNormalAngle: 0
+    useOutsideNormalAngle: 0
+    layerMask:
+      serializedVersion: 2
+      m_Bits: 0
+    minDepth: 0
+    maxDepth: 0
+    minNormalAngle: 0
+    maxNormalAngle: 0
+  collisionOffset: 0.05
 --- !u!114 &1772141502
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13432,6 +13505,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enemyToSpawnPrefab: {fileID: 3104775081532476301, guid: b39bb1221553c4a4aaed4482bcf25684, type: 3}
   _timeBetweenSpawns: 1.5
+  _useRandomSpawnDelay: 1
 --- !u!1 &1829477798
 GameObject:
   m_ObjectHideFlags: 0
@@ -13779,6 +13853,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enemyToSpawnPrefab: {fileID: 3104775081532476301, guid: b39bb1221553c4a4aaed4482bcf25684, type: 3}
   _timeBetweenSpawns: 1.5
+  _useRandomSpawnDelay: 1
 --- !u!1 &1887226520
 GameObject:
   m_ObjectHideFlags: 0

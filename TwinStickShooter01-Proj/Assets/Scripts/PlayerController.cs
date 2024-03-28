@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -47,6 +48,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] bool _enableSatelliteWeapon;
 
     // ---------------------------------------------------
+    [Header("Movement Collision")]
+    [SerializeField] ContactFilter2D movementContactFilter;
+    [SerializeField] float collisionOffset = 0.05f;
+
+    // ---------------------------------------------------
 
     // Player input values
     Vector2 _moveInput;
@@ -69,6 +75,9 @@ public class PlayerController : MonoBehaviour
 
     // Melee values
     bool _isMeleeAttacking = false;
+
+    // Movement Collision
+    List<RaycastHit2D> movementRaycastHits = new List<RaycastHit2D>();
 
     enum SpriteFacingDirection
     {
@@ -109,6 +118,22 @@ public class PlayerController : MonoBehaviour
         // Update Dash
         if(_isDashing)
         {
+            // Check collision against walls
+            int raycastCollisionCount = _rigidbody2D.Cast
+            (
+                _dashInput,
+                movementContactFilter,
+                movementRaycastHits,
+                _dashSpeed * Time.fixedDeltaTime + collisionOffset
+            );
+
+            if(raycastCollisionCount > 0)
+            {
+                // Player collided with a wall while dashing. Immediately stop.
+                _isDashing = false;
+                return;
+            }
+
             _dashTimeElapsed += Time.fixedDeltaTime;
             if(_dashTimeElapsed >= _dashTime)
             {
@@ -127,9 +152,22 @@ public class PlayerController : MonoBehaviour
         // Update Movement
         if(!_moveInput.Equals(Vector2.zero))
         {
-            Vector2 movementDirection = _moveInput;
-            Vector2 newPosition = _rigidbody2D.position + movementDirection * _moveSpeed * Time.fixedDeltaTime;
-            _rigidbody2D.MovePosition(newPosition);
+            // Check collision against walls
+            int raycastCollisionCount = _rigidbody2D.Cast
+            (
+                _moveInput,
+                movementContactFilter,
+                movementRaycastHits,
+                _moveSpeed * Time.fixedDeltaTime + collisionOffset
+            );
+
+            if(raycastCollisionCount == 0)
+            {
+                // No collisions against walls. Allow movement.
+                Vector2 movementDirection = _moveInput;
+                Vector2 newPosition = _rigidbody2D.position + movementDirection * _moveSpeed * Time.fixedDeltaTime;
+                _rigidbody2D.MovePosition(newPosition);
+            }
 
             // Update the player facing based on the player's movement input
             _playerFacingDirection = _moveInput.x >= 0.0f ? SpriteFacingDirection.Right : SpriteFacingDirection.Left;
@@ -333,5 +371,10 @@ public class PlayerController : MonoBehaviour
 
         // Reset time since last shot so the player can immediately fire again
         ResetTimeSinceLastShot();
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        //Debug.Log(GetType().Name + ".OnTriggerEnter2D - " + gameObject.name + ", other: " + other.gameObject.name);
     }
 }
