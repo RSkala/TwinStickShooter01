@@ -77,7 +77,9 @@ public class PlayerController : MonoBehaviour
     bool _isMeleeAttacking = false;
 
     // Movement Collision
-    List<RaycastHit2D> movementRaycastHits = new List<RaycastHit2D>();
+    List<RaycastHit2D> _movementRaycastHitsDash = new List<RaycastHit2D>();
+    List<RaycastHit2D> _movementRaycastHitsXDir = new List<RaycastHit2D>();
+    List<RaycastHit2D> _movementRaycastHitsYDir = new List<RaycastHit2D>();
 
     enum SpriteFacingDirection
     {
@@ -123,7 +125,7 @@ public class PlayerController : MonoBehaviour
             (
                 _dashInput,
                 movementContactFilter,
-                movementRaycastHits,
+                _movementRaycastHitsDash,
                 _dashSpeed * Time.fixedDeltaTime + collisionOffset
             );
 
@@ -152,22 +154,33 @@ public class PlayerController : MonoBehaviour
         // Update Movement
         if(!_moveInput.Equals(Vector2.zero))
         {
-            // Check collision against walls
-            int raycastCollisionCount = _rigidbody2D.Cast
+            // Check collision against walls in the X direction
+            int raycastCollisionCountXDir = _rigidbody2D.Cast
             (
-                _moveInput,
+                new Vector2(_moveInput.x, 0.0f),
                 movementContactFilter,
-                movementRaycastHits,
+                _movementRaycastHitsXDir,
                 _moveSpeed * Time.fixedDeltaTime + collisionOffset
             );
 
-            if(raycastCollisionCount == 0)
-            {
-                // No collisions against walls. Allow movement.
-                Vector2 movementDirection = _moveInput;
-                Vector2 newPosition = _rigidbody2D.position + movementDirection * _moveSpeed * Time.fixedDeltaTime;
-                _rigidbody2D.MovePosition(newPosition);
-            }
+            // Check collision against walls in the Y direction
+            int raycastCollisionCountYDir = _rigidbody2D.Cast
+            (
+                new Vector2(0.0f, _moveInput.y),
+                movementContactFilter,
+                _movementRaycastHitsYDir,
+                _moveSpeed * Time.fixedDeltaTime + collisionOffset
+            );
+
+            // Create a new modified movement direction, depending on whether the player collided with walls.
+            // Separating into two separate raycasts allows the player to "slide" along the wall in a non-collided direction.
+            float modifiedMoveInputX = raycastCollisionCountXDir == 0 ? _moveInput.x : 0.0f;
+            float modifiedMoveInputY = raycastCollisionCountYDir == 0 ? _moveInput.y : 0.0f;
+            Vector2 movementDirection = new Vector2(modifiedMoveInputX, modifiedMoveInputY);
+
+            // Move to the new position
+            Vector2 newPosition = _rigidbody2D.position + movementDirection * _moveSpeed * Time.fixedDeltaTime;
+            _rigidbody2D.MovePosition(newPosition);
 
             // Update the player facing based on the player's movement input
             _playerFacingDirection = _moveInput.x >= 0.0f ? SpriteFacingDirection.Right : SpriteFacingDirection.Left;
