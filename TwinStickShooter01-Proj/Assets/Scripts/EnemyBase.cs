@@ -60,6 +60,9 @@ public class EnemyBase : MonoBehaviour
 
             // Handle projectile collision
             projectile.HandleCollisionWithEnemy();
+
+            // Play Death Sound
+            PlayDeathSound();
         }
 
         // Check melee weapon
@@ -69,6 +72,9 @@ public class EnemyBase : MonoBehaviour
         {
             // This was a melee weapon. Kill this enemy.
             Destroy(gameObject);
+
+            // Play Death Sound
+            PlayDeathSound();
         }
     }
 
@@ -77,4 +83,6 @@ public class EnemyBase : MonoBehaviour
         _target = target;
         _targetRigidbody2D = _target.GetComponent<Rigidbody2D>();
     }
+
+    protected virtual void PlayDeathSound() { }
 }

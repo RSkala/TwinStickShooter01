@@ -167,7 +167,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73eed6f74dcf5484fb983d8a8746048f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyToSpawnPrefab: {fileID: 3104775081532476301, guid: b39bb1221553c4a4aaed4482bcf25684, type: 3}
+  _enemyToSpawnPrefab: {fileID: 3610552223760267735, guid: b39bb1221553c4a4aaed4482bcf25684, type: 3}
   _timeBetweenSpawns: 1.5
   _useRandomSpawnDelay: 1
 --- !u!1 &70740448
@@ -3328,7 +3328,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73eed6f74dcf5484fb983d8a8746048f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyToSpawnPrefab: {fileID: 3104775081532476301, guid: b39bb1221553c4a4aaed4482bcf25684, type: 3}
+  _enemyToSpawnPrefab: {fileID: 3610552223760267735, guid: b39bb1221553c4a4aaed4482bcf25684, type: 3}
   _timeBetweenSpawns: 1.5
   _useRandomSpawnDelay: 1
 --- !u!1 &499745892
@@ -3439,7 +3439,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73eed6f74dcf5484fb983d8a8746048f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyToSpawnPrefab: {fileID: 3104775081532476301, guid: b39bb1221553c4a4aaed4482bcf25684, type: 3}
+  _enemyToSpawnPrefab: {fileID: 3610552223760267735, guid: b39bb1221553c4a4aaed4482bcf25684, type: 3}
   _timeBetweenSpawns: 1.5
   _useRandomSpawnDelay: 1
 --- !u!1 &519420028
@@ -3619,7 +3619,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &582290406
 Transform:
   m_ObjectHideFlags: 0
@@ -5231,7 +5231,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73eed6f74dcf5484fb983d8a8746048f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyToSpawnPrefab: {fileID: 3104775081532476301, guid: b39bb1221553c4a4aaed4482bcf25684, type: 3}
+  _enemyToSpawnPrefab: {fileID: 3610552223760267735, guid: b39bb1221553c4a4aaed4482bcf25684, type: 3}
   _timeBetweenSpawns: 1.5
   _useRandomSpawnDelay: 1
 --- !u!1 &1166428943
@@ -8456,7 +8456,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73eed6f74dcf5484fb983d8a8746048f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyToSpawnPrefab: {fileID: 3104775081532476301, guid: b39bb1221553c4a4aaed4482bcf25684, type: 3}
+  _enemyToSpawnPrefab: {fileID: 3610552223760267735, guid: b39bb1221553c4a4aaed4482bcf25684, type: 3}
   _timeBetweenSpawns: 1.5
   _useRandomSpawnDelay: 1
 --- !u!1 &1420717039
@@ -12567,7 +12567,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73eed6f74dcf5484fb983d8a8746048f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyToSpawnPrefab: {fileID: 3104775081532476301, guid: b39bb1221553c4a4aaed4482bcf25684, type: 3}
+  _enemyToSpawnPrefab: {fileID: 3610552223760267735, guid: b39bb1221553c4a4aaed4482bcf25684, type: 3}
   _timeBetweenSpawns: 1.5
   _useRandomSpawnDelay: 1
 --- !u!1 &1656397463
@@ -12968,6 +12968,13 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 54e99b1b9b26e489094415fa4e95ca73, type: 3}
   - {fileID: 8300000, guid: 1415c467fd45347be93816d425052d5f, type: 3}
   - {fileID: 8300000, guid: 6ce5d060818c940e686c2b1d112486bc, type: 3}
+  _tinySlugDeathClips:
+  - {fileID: 8300000, guid: a2732d035cfb44903b9f9578eb1c8549, type: 3}
+  - {fileID: 8300000, guid: d6eafbdab795242da96748b171067dd6, type: 3}
+  - {fileID: 8300000, guid: 83cf959f1644a484f8d664815ab500af, type: 3}
+  - {fileID: 8300000, guid: 4fbae7207ba8743f89a1ccf5d81f359e, type: 3}
+  - {fileID: 8300000, guid: 2b891cdc85d6b4a6591ffac3c8f6c112, type: 3}
+  - {fileID: 8300000, guid: 7d5ce1f2996204204851de95555a08c0, type: 3}
 --- !u!1 &1714402738
 GameObject:
   m_ObjectHideFlags: 0
@@ -13627,7 +13634,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73eed6f74dcf5484fb983d8a8746048f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyToSpawnPrefab: {fileID: 3104775081532476301, guid: b39bb1221553c4a4aaed4482bcf25684, type: 3}
+  _enemyToSpawnPrefab: {fileID: 3610552223760267735, guid: b39bb1221553c4a4aaed4482bcf25684, type: 3}
   _timeBetweenSpawns: 1.5
   _useRandomSpawnDelay: 1
 --- !u!1 &1829477798
@@ -13975,7 +13982,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73eed6f74dcf5484fb983d8a8746048f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyToSpawnPrefab: {fileID: 3104775081532476301, guid: b39bb1221553c4a4aaed4482bcf25684, type: 3}
+  _enemyToSpawnPrefab: {fileID: 3610552223760267735, guid: b39bb1221553c4a4aaed4482bcf25684, type: 3}
   _timeBetweenSpawns: 1.5
   _useRandomSpawnDelay: 1
 --- !u!1 &1887226520
