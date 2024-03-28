@@ -5130,7 +5130,7 @@ MonoBehaviour:
   _moveSpeed: 6.25
   _dashTime: 0.125
   _dashSpeed: 24
-  _currentWeapon: {fileID: 2057158067}
+  _currentWeapon: {fileID: 1714402740}
   _projectileWeaponRotationPoint: {fileID: 1724216170}
   _rightStickContinuousFire: 1
   _currentMeleeWeapon: {fileID: 2143383013}
@@ -12984,7 +12984,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1714402739
 Transform:
   m_ObjectHideFlags: 0
@@ -12994,7 +12994,7 @@ Transform:
   m_GameObject: {fileID: 1714402738}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.1, z: 0}
+  m_LocalPosition: {x: 0, y: 0.625, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -13017,7 +13017,7 @@ MonoBehaviour:
   _projectileFireSfx: 1
   _projectileShotsPerSecond: 8
   _firePoint: {fileID: 499745893}
-  _projectileSpeed: 3
+  _projectileSpeed: 18
   _projectileLifetime: 3
 --- !u!1 &1724216169
 GameObject:
@@ -14581,7 +14581,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2057158066
 Transform:
   m_ObjectHideFlags: 0
