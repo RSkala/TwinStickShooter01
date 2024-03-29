@@ -29,7 +29,7 @@ public class EnemyBase : MonoBehaviour
         _currentHealth = _maxHealth;
 
         // TEST: For now, just use the PlayerCharacter in the scene.
-        SetTarget(GameObject.Find("PlayerCharacter"));
+        SetTarget(PlayerController.CurrentPlayerController.gameObject);
     }
 
     protected virtual void FixedUpdate()

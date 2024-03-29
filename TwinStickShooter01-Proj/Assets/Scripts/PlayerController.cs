@@ -104,7 +104,15 @@ public class PlayerController : MonoBehaviour
         Left
     }
 
+    // TEMP/TEST: Just use the current active PlayerController
+    public static PlayerController CurrentPlayerController { get; private set; }
+
     void ResetTimeSinceLastShot() { _timeSinceLastShot = _currentWeapon.FireRate; }
+
+    void Awake()
+    {
+        CurrentPlayerController = this;
+    }
 
     void Start()
     {
