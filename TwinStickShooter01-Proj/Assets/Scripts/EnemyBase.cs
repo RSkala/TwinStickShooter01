@@ -5,6 +5,7 @@ public class EnemyBase : MonoBehaviour
 {
     [SerializeField] float _maxHealth;
     [SerializeField] float _moveSpeed;
+    [SerializeField] protected ParticleSystem _deathParticlePrefab;
 
     Rigidbody2D _rigidbody2D;
     Collider2D _collider2D;
@@ -55,14 +56,11 @@ public class EnemyBase : MonoBehaviour
         ProjectileBase projectile = other.gameObject.GetComponent<ProjectileBase>();
         if(projectile != null)
         {
-            // This was a projectile. Kill this enemy. RKS TODO: Check instigator and damage amount
-            Destroy(gameObject);
-
             // Handle projectile collision
             projectile.HandleCollisionWithEnemy();
 
-            // Play Death Sound
-            PlayDeathSound();
+            // This was a projectile. Kill this enemy. RKS TODO: Check instigator and damage amount
+            KillEnemy();
         }
 
         // Check melee weapon
@@ -71,10 +69,7 @@ public class EnemyBase : MonoBehaviour
         if(meleeWeapon != null)
         {
             // This was a melee weapon. Kill this enemy.
-            Destroy(gameObject);
-
-            // Play Death Sound
-            PlayDeathSound();
+            KillEnemy();
         }
     }
 
@@ -85,4 +80,19 @@ public class EnemyBase : MonoBehaviour
     }
 
     protected virtual void PlayDeathSound() { }
+    protected virtual void KillEnemy()
+    {
+        // For now, just destroy the gameobject
+        Destroy(gameObject);
+
+        // Play Death Sound
+        PlayDeathSound();
+
+        // Play Death Particle, if this enemy has one
+        if(_deathParticlePrefab != null)
+        {
+            ParticleSystem deathParticle = GameObject.Instantiate(_deathParticlePrefab, _rigidbody2D.position, Quaternion.identity);
+            deathParticle.Play();
+        }
+    }
 }
