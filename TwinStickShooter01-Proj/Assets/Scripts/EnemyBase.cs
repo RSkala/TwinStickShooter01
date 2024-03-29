@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 [RequireComponent(typeof(SpriteRenderer), typeof(Rigidbody2D), typeof(Collider2D))]
 public class EnemyBase : MonoBehaviour
@@ -7,9 +8,13 @@ public class EnemyBase : MonoBehaviour
     [SerializeField] float _moveSpeed;
     [SerializeField] protected ParticleSystem _deathParticlePrefab;
 
+    // Whether or not to use navigation. Some enemies may ignore navigation (e.g. flyers, ghosts, etc)
+    [SerializeField] protected bool _useNavigation = true;
+
     Rigidbody2D _rigidbody2D;
     Collider2D _collider2D;
     SpriteRenderer _spriteRenderer;
+    NavMeshAgent _navMeshAgent;
 
     float _currentHealth;
 
@@ -18,6 +23,13 @@ public class EnemyBase : MonoBehaviour
 
     protected virtual void Start()
     {
+        // -------------------------------------------
+        // Experimental - NavMesh Movement
+        _navMeshAgent = GetComponent<NavMeshAgent>();
+        _navMeshAgent.updateRotation = false;
+        _navMeshAgent.updateUpAxis = false;
+        // -------------------------------------------
+
         _rigidbody2D = GetComponent<Rigidbody2D>();
         _rigidbody2D.bodyType = RigidbodyType2D.Kinematic;
 
@@ -30,6 +42,24 @@ public class EnemyBase : MonoBehaviour
 
         // TEST: For now, just use the PlayerCharacter in the scene.
         SetTarget(PlayerController.CurrentPlayerController.gameObject);
+
+        // DEBUG
+        //Debug_StartNavigation();
+    }
+
+    static int kUsingNavigationCount = 0;
+    void Debug_StartNavigation()
+    {
+        // Test: Have every other enemy use navigation, so I can see how navigation affects movement speed
+        _useNavigation = ++kUsingNavigationCount % 2 == 0;
+        if(_useNavigation)
+        {
+            _spriteRenderer.color = Color.red;
+        }
+        else
+        {
+            _navMeshAgent.enabled = false;
+        }
     }
 
     protected virtual void FixedUpdate()
@@ -41,12 +71,22 @@ public class EnemyBase : MonoBehaviour
 
         // Move toward the target
         Vector2 dirToTarget = (_targetRigidbody2D.position - _rigidbody2D.position).normalized;
-        Vector2 moveDirection = dirToTarget * _moveSpeed * Time.fixedDeltaTime;
-        Vector2 newPos = moveDirection + _rigidbody2D.position;
-        _rigidbody2D.MovePosition(newPos);
+
+        // Enemy movement depends on whether navigation is active or not. In the future, some enemies may ignore navigation.
+        if(_useNavigation)
+        {
+            _navMeshAgent.SetDestination(_targetRigidbody2D.position);
+        }
+        else
+        {
+            Vector2 moveDirection = dirToTarget * _moveSpeed * Time.fixedDeltaTime;
+            Vector2 newPos = moveDirection + _rigidbody2D.position;
+            _rigidbody2D.MovePosition(newPos);   
+        }
 
         // Change facing depending on movement direction. Easiest way is just to check the X in the move direction.
-        _spriteRenderer.flipX = moveDirection.x < 0.0f;
+        //_spriteRenderer.flipX = moveDirection.x < 0.0f;
+        _spriteRenderer.flipX = dirToTarget.x < 0.0f;
     }
 
     protected virtual void OnTriggerEnter2D(Collider2D other)
