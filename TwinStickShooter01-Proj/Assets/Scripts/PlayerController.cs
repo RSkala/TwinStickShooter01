@@ -304,6 +304,13 @@ public class PlayerController : MonoBehaviour
 
     void OnMove(InputValue inputValue)
     {
+        // Do not allow the player to move while melee attacking (NOTE: This could be a good power-up / ability)
+        if(_isMeleeAttacking)
+        {
+            _moveInput = Vector2.zero;
+            return;
+        }
+
         _moveInput = inputValue.Get<Vector2>();
     }
 
