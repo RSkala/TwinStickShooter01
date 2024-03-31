@@ -16,6 +16,7 @@ public class EnemyBase : MonoBehaviour
     SpriteRenderer _spriteRenderer;
     NavMeshAgent _navMeshAgent;
 
+    // The enemy's current health. Kill when health reaches zero
     float _currentHealth;
 
     GameObject _target;
@@ -99,8 +100,8 @@ public class EnemyBase : MonoBehaviour
             // Handle projectile collision
             projectile.HandleCollisionWithEnemy();
 
-            // This was a projectile. Kill this enemy. RKS TODO: Check instigator and damage amount
-            KillEnemy();
+            // This was a projectile. Deal damage to this enemy. RKS TODO: Check instigator
+            DealDamage(projectile.Damage);
         }
 
         // Check melee weapon
@@ -108,8 +109,8 @@ public class EnemyBase : MonoBehaviour
         WeaponMeleeBase meleeWeapon = other.gameObject.GetComponentInParent<WeaponMeleeBase>(); // Currently the melee weapon component is on the rotator
         if(meleeWeapon != null)
         {
-            // This was a melee weapon. Kill this enemy.
-            KillEnemy();
+            // This was a melee weapon. Damage this enemy.
+            DealDamage(meleeWeapon.MeleeDamage);
         }
     }
 
@@ -133,6 +134,18 @@ public class EnemyBase : MonoBehaviour
         {
             ParticleSystem deathParticle = GameObject.Instantiate(_deathParticlePrefab, _rigidbody2D.position, Quaternion.identity);
             deathParticle.Play();
+        }
+    }
+
+    public void DealDamage(float damage)
+    {
+        // Subtract the damage from current health and ensure it doesn't go below zero
+        _currentHealth = Mathf.Max(_currentHealth - damage, 0.0f);
+
+        // Check current health and kill enemy if zero health.
+        if(_currentHealth <= 0.0f)
+        {
+            KillEnemy();
         }
     }
 }

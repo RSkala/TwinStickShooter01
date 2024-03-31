@@ -436,7 +436,7 @@ public class PlayerController : MonoBehaviour
         if(_satelliteWeapon.IsActive)
         {
             ProjectileBase newProjectile = GameObject.Instantiate(_currentWeapon.ProjectilePrefab, _satelliteWeapon.GetPosition, _projectileWeaponRotationPoint.rotation);
-            newProjectile.Init(_currentWeapon.ProjectileSpeed, _currentWeapon.ProjectileLifetime);
+            newProjectile.Init(_currentWeapon.ProjectileSpeed, _currentWeapon.ProjectileLifetime, _currentWeapon.ProjectileDamage);
         }
     }
 

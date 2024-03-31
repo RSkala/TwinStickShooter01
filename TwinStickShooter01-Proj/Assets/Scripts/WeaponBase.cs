@@ -9,6 +9,7 @@ public abstract class WeaponBase : MonoBehaviour
     [SerializeField] Transform _firePoint;
     [SerializeField] float _projectileSpeed;
     [SerializeField] float _projectileLifetime;
+    [SerializeField] float _projectileDamage;
 
     public SpriteRenderer SpriteRenderer { get; private set; }
 
@@ -16,6 +17,7 @@ public abstract class WeaponBase : MonoBehaviour
     public ProjectileBase ProjectilePrefab => _projectilePrefab;
     public float ProjectileSpeed => _projectileSpeed;
     public float ProjectileLifetime => _projectileLifetime;
+    public float ProjectileDamage => _projectileDamage;
 
     protected virtual void Start()
     {
@@ -31,7 +33,7 @@ public abstract class WeaponBase : MonoBehaviour
 
         // Always fire the first projectile straight from the weapon firepoint
         ProjectileBase newProjectile = GameObject.Instantiate(_projectilePrefab, _firePoint.position, projectileRotation);
-        newProjectile.Init(_projectileSpeed, _projectileLifetime);
+        newProjectile.Init(_projectileSpeed, _projectileLifetime, _projectileDamage);
 
         // Handle Spread Gun
         int totalBulletsSpawned = 1;
@@ -46,8 +48,8 @@ public abstract class WeaponBase : MonoBehaviour
             ProjectileBase newLeftProjectile = GameObject.Instantiate(_projectilePrefab, _firePoint.position, leftRotation);
             ProjectileBase newRightProjectile = GameObject.Instantiate(_projectilePrefab, _firePoint.position, rightRotation);
 
-            newLeftProjectile.Init(_projectileSpeed, _projectileLifetime);
-            newRightProjectile.Init(_projectileSpeed, _projectileLifetime);
+            newLeftProjectile.Init(_projectileSpeed, _projectileLifetime, _projectileDamage);
+            newRightProjectile.Init(_projectileSpeed, _projectileLifetime, _projectileDamage);
 
             angleMultiple += 1.0f;
             totalBulletsSpawned += 2;

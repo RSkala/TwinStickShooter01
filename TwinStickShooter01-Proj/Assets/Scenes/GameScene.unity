@@ -10875,6 +10875,7 @@ MonoBehaviour:
   _firePoint: {fileID: 411384598}
   _projectileSpeed: 18
   _projectileLifetime: 3
+  _projectileDamage: 0
 --- !u!1 &1365053438
 GameObject:
   m_ObjectHideFlags: 0
@@ -15055,6 +15056,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f3e4c8cf013d44db92c967ed678daf7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _meleeDamage: 50
   eventMeleeAttackStart:
     m_PersistentCalls:
       m_Calls: []
@@ -16356,6 +16358,7 @@ MonoBehaviour:
   _firePoint: {fileID: 499745893}
   _projectileSpeed: 18
   _projectileLifetime: 3
+  _projectileDamage: 0
 --- !u!1 &1724216169
 GameObject:
   m_ObjectHideFlags: 0
@@ -18158,6 +18161,7 @@ MonoBehaviour:
   _firePoint: {fileID: 1932666631}
   _projectileSpeed: 12
   _projectileLifetime: 2
+  _projectileDamage: 10
 --- !u!1 &2057158065
 GameObject:
   m_ObjectHideFlags: 0
@@ -18209,6 +18213,7 @@ MonoBehaviour:
   _firePoint: {fileID: 148591717}
   _projectileSpeed: 12
   _projectileLifetime: 2
+  _projectileDamage: 0
 --- !u!1 &2069439278
 GameObject:
   m_ObjectHideFlags: 0
@@ -18489,6 +18494,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f3e4c8cf013d44db92c967ed678daf7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _meleeDamage: 0
   eventMeleeAttackStart:
     m_PersistentCalls:
       m_Calls: []

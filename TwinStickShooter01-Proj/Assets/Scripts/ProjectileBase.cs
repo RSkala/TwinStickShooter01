@@ -7,11 +7,13 @@ public abstract class ProjectileBase : MonoBehaviour
     float _moveSpeed;
     float _lifetimeSeconds;
     float _timeAlive;
+    public float Damage { get; protected set; }
 
-    public void Init(float moveSpeed, float lifetimeSeconds)
+    public void Init(float moveSpeed, float lifetimeSeconds, float damage)
     {
         _moveSpeed = moveSpeed;
         _lifetimeSeconds = lifetimeSeconds;
+        Damage = damage;
     }
 
     void Start()

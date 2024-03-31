@@ -3,8 +3,11 @@ using UnityEngine.Events;
 
 public abstract class WeaponMeleeBase : MonoBehaviour
 {
+    [SerializeField] float _meleeDamage;
     [HideInInspector] public UnityEvent eventMeleeAttackStart;
     [HideInInspector] public UnityEvent eventMeleeAttackEnd;
+
+    public float MeleeDamage => _meleeDamage;
 
     SpriteRenderer _spriteRenderer;
 

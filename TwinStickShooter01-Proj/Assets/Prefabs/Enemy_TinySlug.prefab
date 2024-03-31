@@ -194,7 +194,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd036bf9201724054959e05983bb0813, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHealth: 50
+  _maxHealth: 10
   _moveSpeed: 0.75
   _deathParticlePrefab: {fileID: 6964198379561755958, guid: 273d20aab03a446458da2b04260942cd, type: 3}
   _useNavigation: 1
