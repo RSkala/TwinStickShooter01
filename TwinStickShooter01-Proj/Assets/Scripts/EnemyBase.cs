@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -147,5 +148,17 @@ public class EnemyBase : MonoBehaviour
         {
             KillEnemy();
         }
+        else
+        {
+            StartCoroutine(DamageHitFlash());
+        }
+    }
+
+    IEnumerator DamageHitFlash()
+    {
+        // This enemy was damaged but not killed. Show damage flash.
+        _spriteRenderer.color = GameManager.Instance.EnemyDamageFlashColor;
+        yield return new WaitForSeconds(Time.deltaTime * GameManager.Instance.DamageFlashFramesToWait);
+        _spriteRenderer.color = Color.white; // On next frame/frames, return to original color
     }
 }
