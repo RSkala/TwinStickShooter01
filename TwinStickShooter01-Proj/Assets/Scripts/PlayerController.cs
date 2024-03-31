@@ -6,6 +6,10 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     // ---------------------------------------------------
+    [Header("Health")]
+    [SerializeField] float _playerMaxHealth;
+
+    // ---------------------------------------------------
     [Header("Player Movement")]
 
     [Tooltip("How quickly the player moves")]
@@ -67,6 +71,7 @@ public class PlayerController : MonoBehaviour
 
     Rigidbody2D _rigidbody2D;
     SpriteRenderer _spriteRenderer;
+    TrailRenderer _dashTrailRenderer;
 
     Camera _mainCamera;
     float _timeSinceLastShot;
@@ -104,6 +109,8 @@ public class PlayerController : MonoBehaviour
         Left
     }
 
+    float _currentHealth;
+
     // TEMP/TEST: Just use the current active PlayerController
     public static PlayerController CurrentPlayerController { get; private set; }
 
@@ -116,10 +123,20 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+        // Initialize Components
         _rigidbody2D = GetComponent<Rigidbody2D>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
+        _dashTrailRenderer = GetComponent<TrailRenderer>();
 
         _mainCamera = Camera.main;
+
+        // Health
+        if(_playerMaxHealth <= 0.0f)
+        {
+            Debug.LogError("Player health has not been set.");
+        }
+
+        _currentHealth = _playerMaxHealth;
 
         // Initialize "time since last shot" to the fire rate, so there is no delay on the very first shot
         ResetTimeSinceLastShot();
@@ -141,9 +158,14 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
+        // The "Dash Trail Renderer" should only emit while the player is dashing
+        _dashTrailRenderer.emitting = _isDashing;
+
         // Update Dash
         if(_isDashing)
         {
+            _dashTrailRenderer.emitting = true; 
+
             // Check collision against walls
             int raycastCollisionCount = _rigidbody2D.Cast
             (
@@ -420,5 +442,14 @@ public class PlayerController : MonoBehaviour
     void OnTriggerEnter2D(Collider2D other)
     {
         //Debug.Log(GetType().Name + ".OnTriggerEnter2D - " + gameObject.name + ", other: " + other.gameObject.name);
+    }
+
+    void DealDamage(float damageAmount)
+    {
+        _currentHealth -= damageAmount;
+        if(_currentHealth <= 0.0f)
+        {
+            Debug.Log("Player is dead. Show game over screen.");
+        }
     }
 }
