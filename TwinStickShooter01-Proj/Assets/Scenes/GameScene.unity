@@ -7186,6 +7186,7 @@ MonoBehaviour:
   _moveSpeed: 6.25
   _dashTime: 0.125
   _dashSpeed: 24
+  _dashRechargeTime: 0
   _currentWeapon: {fileID: 1714402740}
   _projectileWeaponRotationPoint: {fileID: 1724216170}
   _rightStickContinuousFire: 1
@@ -7210,6 +7211,7 @@ MonoBehaviour:
   collisionOffset: 0.02
   _spreadGunSize: 1
   _spreadGunAngle: 10
+  _dashRechargeMeter: {fileID: 0}
 --- !u!1 &1095528798
 GameObject:
   m_ObjectHideFlags: 0
@@ -15210,6 +15212,7 @@ MonoBehaviour:
   _moveSpeed: 6.25
   _dashTime: 0.125
   _dashSpeed: 24
+  _dashRechargeTime: 1
   _currentWeapon: {fileID: 2053978443}
   _projectileWeaponRotationPoint: {fileID: 1615678862}
   _rightStickContinuousFire: 1
@@ -15234,6 +15237,7 @@ MonoBehaviour:
   collisionOffset: 0.02
   _spreadGunSize: 1
   _spreadGunAngle: 10
+  _dashRechargeMeter: {fileID: 2069439280}
 --- !u!114 &1563589236
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16805,6 +16809,7 @@ MonoBehaviour:
   _moveSpeed: 1
   _dashTime: 0
   _dashSpeed: 0
+  _dashRechargeTime: 0
   _currentWeapon: {fileID: 0}
   _projectileWeaponRotationPoint: {fileID: 501097956}
   _rightStickContinuousFire: 1
@@ -16829,6 +16834,7 @@ MonoBehaviour:
   collisionOffset: 0.05
   _spreadGunSize: 1
   _spreadGunAngle: 10
+  _dashRechargeMeter: {fileID: 0}
 --- !u!114 &1772141502
 MonoBehaviour:
   m_ObjectHideFlags: 0

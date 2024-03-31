@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(Collider2D), typeof(Rigidbody2D))]
 public class PlayerController : MonoBehaviour
@@ -20,6 +21,9 @@ public class PlayerController : MonoBehaviour
 
     [Tooltip("How quickly the player moves while dashing")]
     [SerializeField] float _dashSpeed;
+
+    [Tooltip("How long it takes to recharge the player's dash (in seconds)")]
+    [SerializeField] float _dashRechargeTime;
 
     // ---------------------------------------------------
     [Header("Projectile Weapon")]
@@ -62,6 +66,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] [Range(0.1f, 90.0f)] float _spreadGunAngle = 10.0f;
 
     // ---------------------------------------------------
+    [Header("UI")]
+    [SerializeField] Slider _dashRechargeMeter;
+
+    // ---------------------------------------------------
 
     // Player input values
     Vector2 _moveInput;
@@ -80,8 +88,9 @@ public class PlayerController : MonoBehaviour
     SpriteFacingDirection _gunFacingDirection = SpriteFacingDirection.Invalid;
 
     // Dash values
-    bool _isDashing = false;
-    float _dashTimeElapsed;
+    bool _isDashing = false; // Whether or not the player is dashing
+    float _dashTimeElapsed; // How long the player has been in their dashing state
+    float _dashRechargeTimeElapsed; // Timer for recharging the dash ability
 
     // Melee values
     bool _isMeleeAttacking = false;
@@ -136,6 +145,7 @@ public class PlayerController : MonoBehaviour
             Debug.LogError("Player health has not been set.");
         }
 
+        // Set player's current health to the max health
         _currentHealth = _playerMaxHealth;
 
         // Initialize "time since last shot" to the fire rate, so there is no delay on the very first shot
@@ -154,6 +164,9 @@ public class PlayerController : MonoBehaviour
         // Start the melee weapon disabled and listen for the melee attack end animation event
         _currentMeleeWeapon.SetActive(false);
         _currentMeleeWeapon.eventMeleeAttackEnd.AddListener(OnMeleeAttackEnd);
+
+        // The player should be allowed to dash immediately after spawning
+        _dashRechargeTimeElapsed = _dashRechargeTime;
     }
 
     void FixedUpdate()
@@ -195,6 +208,15 @@ public class PlayerController : MonoBehaviour
 
             // No more movement or look updates while dashing
             return;
+        }
+        else
+        {
+            // The player is not dashing. Recharge the dash meter.
+            _dashRechargeTimeElapsed += Time.fixedDeltaTime;
+            _dashRechargeTimeElapsed = Mathf.Clamp(_dashRechargeTimeElapsed, 0.0f, _dashRechargeTime);
+
+            // Update the dash meter in the UI. RKS TODO: Use a UnityEvent
+            _dashRechargeMeter.value = _dashRechargeTimeElapsed > 0.0f ? _dashRechargeTimeElapsed / _dashRechargeTime : 0.0f;
         }
 
         // Update Movement
@@ -390,6 +412,12 @@ public class PlayerController : MonoBehaviour
 
     void OnDash(InputValue inputValue)
     {
+        // Do not allow the player to dash while the dash meter is recharging
+        if(_dashRechargeTimeElapsed < _dashRechargeTime)
+        {
+            return;
+        }
+
         // Only allow dashing if the player has some movement input
         if(!_moveInput.Equals(Vector2.zero))
         {
@@ -397,6 +425,7 @@ public class PlayerController : MonoBehaviour
             _dashInput = _moveInput;
             _isDashing = true;
             _dashTimeElapsed = 0.0f;
+            _dashRechargeTimeElapsed = 0.0f;
             AudioManager.Instance.PlaySound(AudioManager.SFX.Dash);
         }
     }
