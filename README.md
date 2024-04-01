@@ -6,11 +6,11 @@ I am using legally purchased assets from Itch.io and Craftpix.</br>
 I appreciate ALL creators and support them when I can!
 
 #
-<b>WIP Screenshot</b>:
+<b>WIP Screenshots</b>:
 <!--
 <img src="./Screenshots/TwinStickShooter-Prototype-Screenshot-0001.png" width=250 />
 -->
-<img src="./Screenshots/TwinStickShooter-Prototype-Screenshot-0001.png"/>
+<img src="./Screenshots/TwinStickShooter-Prototype-Screenshot-0001.png" width=250/>
 
 #
 ### Pixel Art Credits:
