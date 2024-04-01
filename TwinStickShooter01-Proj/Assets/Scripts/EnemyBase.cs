@@ -112,6 +112,7 @@ public class EnemyBase : MonoBehaviour
         if(meleeWeapon != null)
         {
             // This was a melee weapon. Damage this enemy.
+            //Debug.Log("Dealing " + meleeWeapon.MeleeDamage + " Melee Damage to " + gameObject.name);
             DealDamage(meleeWeapon.MeleeDamage);
         }
     }
