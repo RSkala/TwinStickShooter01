@@ -312,6 +312,55 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2122990639}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &27221120
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 27221122}
+  - component: {fileID: 27221121}
+  m_Layer: 0
+  m_Name: CoinSpread - Delayed
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &27221121
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 27221120}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e350153e36294816b0f5e176db17aa0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _itemDropPrefab: {fileID: 179580211706796939, guid: d32d9db8a777c4ee984c0e50dcff8bf3, type: 3}
+  _spreadRadius: 1
+  _minCoinsToDrop: 5
+  _maxCoinsToDrop: 20
+  _timeBetweenDrops: 0.0625
+--- !u!4 &27221122
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 27221120}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -7.67, y: 2.99, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &34928283
 GameObject:
   m_ObjectHideFlags: 0
@@ -3531,7 +3580,7 @@ Transform:
   m_GameObject: {fileID: 228047170}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -1.15, y: -0.11, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -17096,6 +17145,55 @@ MonoBehaviour:
   _projectileSpeed: 18
   _projectileLifetime: 3
   _projectileDamage: 0
+--- !u!1 &1720654728
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1720654730}
+  - component: {fileID: 1720654729}
+  m_Layer: 0
+  m_Name: CoinSpread - Instant
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &1720654729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1720654728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e350153e36294816b0f5e176db17aa0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _itemDropPrefab: {fileID: 179580211706796939, guid: d32d9db8a777c4ee984c0e50dcff8bf3, type: 3}
+  _spreadRadius: 1
+  _minCoinsToDrop: 5
+  _maxCoinsToDrop: 20
+  _timeBetweenDrops: 0
+--- !u!4 &1720654730
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1720654728}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -7.13, y: -2.84, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1724216169
 GameObject:
   m_ObjectHideFlags: 0
@@ -19744,3 +19842,5 @@ SceneRoots:
   - {fileID: 661831393}
   - {fileID: 2956109566348316104}
   - {fileID: 228047171}
+  - {fileID: 27221122}
+  - {fileID: 1720654730}
