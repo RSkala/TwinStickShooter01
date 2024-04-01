@@ -5588,6 +5588,63 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!1001 &661831393
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4616137369078483055, guid: d0c66fb2fbeb04489b02408ed1e1ed37, type: 3}
+      propertyPath: m_Name
+      value: PickupItem_SatelliteWeapon
+      objectReference: {fileID: 0}
+    - target: {fileID: 5004817698867081175, guid: d0c66fb2fbeb04489b02408ed1e1ed37, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2.96
+      objectReference: {fileID: 0}
+    - target: {fileID: 5004817698867081175, guid: d0c66fb2fbeb04489b02408ed1e1ed37, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.87
+      objectReference: {fileID: 0}
+    - target: {fileID: 5004817698867081175, guid: d0c66fb2fbeb04489b02408ed1e1ed37, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5004817698867081175, guid: d0c66fb2fbeb04489b02408ed1e1ed37, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5004817698867081175, guid: d0c66fb2fbeb04489b02408ed1e1ed37, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5004817698867081175, guid: d0c66fb2fbeb04489b02408ed1e1ed37, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5004817698867081175, guid: d0c66fb2fbeb04489b02408ed1e1ed37, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5004817698867081175, guid: d0c66fb2fbeb04489b02408ed1e1ed37, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5004817698867081175, guid: d0c66fb2fbeb04489b02408ed1e1ed37, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5004817698867081175, guid: d0c66fb2fbeb04489b02408ed1e1ed37, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d0c66fb2fbeb04489b02408ed1e1ed37, type: 3}
 --- !u!1 &665612231
 GameObject:
   m_ObjectHideFlags: 0
@@ -7192,8 +7249,6 @@ MonoBehaviour:
   _rightStickContinuousFire: 1
   _currentMeleeWeapon: {fileID: 2143383013}
   _meleeWeaponRotationPoint: {fileID: 1186067844}
-  _satelliteWeapon: {fileID: 612520047}
-  _enableSatelliteWeapon: 0
   movementContactFilter:
     useTriggers: 0
     useLayerMask: 1
@@ -15221,8 +15276,6 @@ MonoBehaviour:
   _rightStickContinuousFire: 1
   _currentMeleeWeapon: {fileID: 1508703698}
   _meleeWeaponRotationPoint: {fileID: 398720363}
-  _satelliteWeapon: {fileID: 415208778}
-  _enableSatelliteWeapon: 0
   movementContactFilter:
     useTriggers: 0
     useLayerMask: 1
@@ -16819,8 +16872,6 @@ MonoBehaviour:
   _rightStickContinuousFire: 1
   _currentMeleeWeapon: {fileID: 0}
   _meleeWeaponRotationPoint: {fileID: 0}
-  _satelliteWeapon: {fileID: 0}
-  _enableSatelliteWeapon: 0
   movementContactFilter:
     useTriggers: 0
     useLayerMask: 0
@@ -18472,6 +18523,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da399de922ddb44aab521475c743f36d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <DisableEnemySpawning>k__BackingField: 0
   <EnemyDamageFlashColor>k__BackingField: {r: 1, g: 0, b: 0, a: 1}
   <DamageFlashFramesToWait>k__BackingField: 2
 --- !u!1 &2143383010
@@ -18624,3 +18676,4 @@ SceneRoots:
   - {fileID: 1563589241}
   - {fileID: 1104623547}
   - {fileID: 2000095847}
+  - {fileID: 661831393}

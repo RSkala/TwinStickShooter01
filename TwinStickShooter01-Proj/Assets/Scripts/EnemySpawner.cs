@@ -15,6 +15,11 @@ public class EnemySpawner : MonoBehaviour
 
     void Update()
     {
+        if(GameManager.Instance.DisableEnemySpawning)
+        {
+            return;
+        }
+
         _timeSinceLastSpawn += Time.deltaTime;
         if(_timeSinceLastSpawn >= _timeBetweenSpawns)
         {

@@ -47,13 +47,13 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Transform _meleeWeaponRotationPoint;
 
     // ---------------------------------------------------
-    [Header("Satellite Weapon")]
+    // [Header("Satellite Weapon")]
 
-    [Tooltip("The player's currently selected satellite weapon")]
-    [SerializeField] SatelliteWeapon _satelliteWeapon;
+    // [Tooltip("The player's currently selected satellite weapon")]
+    // [SerializeField] SatelliteWeapon _satelliteWeapon; // RKS TODO: Since this is now attached dynamically, move to non-serialized fields
 
-    [Tooltip("Whether to enabled or disable player satellite weapons")]
-    [SerializeField] bool _enableSatelliteWeapon;
+    // [Tooltip("Whether to enabled or disable player satellite weapons")]
+    // [SerializeField] bool _enableSatelliteWeapon; // RKS TODO: Remove this, it is no longer necessary
 
     // ---------------------------------------------------
     [Header("Movement Collision")]
@@ -77,6 +77,7 @@ public class PlayerController : MonoBehaviour
     Vector2 _mouseLookPosition;
     Vector2 _dashInput;
 
+    // Components
     Rigidbody2D _rigidbody2D;
     SpriteRenderer _spriteRenderer;
     TrailRenderer _dashTrailRenderer;
@@ -99,6 +100,9 @@ public class PlayerController : MonoBehaviour
     List<RaycastHit2D> _movementRaycastHitsDash = new List<RaycastHit2D>();
     List<RaycastHit2D> _movementRaycastHitsXDir = new List<RaycastHit2D>();
     List<RaycastHit2D> _movementRaycastHitsYDir = new List<RaycastHit2D>();
+
+    // Satellite Weapon
+    SatelliteWeaponBase _currentSatelliteWeapon;
 
     // Spread Gun Sizes
     public enum SpreadGunSize
@@ -158,8 +162,8 @@ public class PlayerController : MonoBehaviour
         _gunFacingDirection = SpriteFacingDirection.Right;
 
         // Enable/Disable Satellite Weapon and initialize it with this player as the owner
-        _satelliteWeapon.SetActive(_enableSatelliteWeapon);
-        _satelliteWeapon.Init(_rigidbody2D);
+        //_satelliteWeapon.SetActive(_enableSatelliteWeapon);
+        //_satelliteWeapon.Init(_rigidbody2D);
 
         // Start the melee weapon disabled and listen for the melee attack end animation event
         _currentMeleeWeapon.SetActive(false);
@@ -433,9 +437,9 @@ public class PlayerController : MonoBehaviour
     void FireProjectileFromSatelliteWeapon()
     {
         // Fire a bullet from the satellite weapon, if enabled. Do not play a sound, as a sound was already played when the weapon was fired.
-        if(_satelliteWeapon.IsActive)
+        if(_currentSatelliteWeapon != null)
         {
-            ProjectileBase newProjectile = GameObject.Instantiate(_currentWeapon.ProjectilePrefab, _satelliteWeapon.GetPosition, _projectileWeaponRotationPoint.rotation);
+            ProjectileBase newProjectile = GameObject.Instantiate(_currentWeapon.ProjectilePrefab, _currentSatelliteWeapon.GetPosition, _projectileWeaponRotationPoint.rotation);
             newProjectile.Init(_currentWeapon.ProjectileSpeed, _currentWeapon.ProjectileLifetime, _currentWeapon.ProjectileDamage);
         }
     }
@@ -480,5 +484,17 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("Player is dead. Show game over screen.");
         }
+    }
+
+    public void AttachSatelliteWeapon(SatelliteWeaponBase satelliteWeaponPrefab)
+    {
+        // If the player is attempting to pickup a satellite weapon of the same type, ignore this. RKS TODO: Allowing more than one satellite would be a cool feature!
+        if(_currentSatelliteWeapon != null && _currentSatelliteWeapon.GetType() == satelliteWeaponPrefab.GetType())
+        {
+            return;
+        }
+
+        _currentSatelliteWeapon = GameObject.Instantiate(satelliteWeaponPrefab, transform.position, Quaternion.identity);
+        _currentSatelliteWeapon.Init(_rigidbody2D);
     }
 }
