@@ -76,8 +76,8 @@ public class PlayerController : MonoBehaviour
     Camera _mainCamera;
     float _timeSinceLastShot;
     bool _useMouseLook = false;
-    SpriteFacingDirection _playerFacingDirection = SpriteFacingDirection.Invalid;
-    SpriteFacingDirection _gunFacingDirection = SpriteFacingDirection.Invalid;
+    GameManager.SpriteFacingDirection _playerFacingDirection = GameManager.SpriteFacingDirection.Invalid;
+    GameManager.SpriteFacingDirection _gunFacingDirection = GameManager.SpriteFacingDirection.Invalid;
 
     // Dash values
     bool _isDashing = false; // Whether or not the player is dashing
@@ -106,13 +106,7 @@ public class PlayerController : MonoBehaviour
         ElevenBullets = 11
     }
 
-    enum SpriteFacingDirection
-    {
-        Invalid,
-        Right,
-        Left
-    }
-
+    // Player's Health
     float _currentHealth;
 
     // TEMP/TEST: Just use the current active PlayerController
@@ -147,10 +141,10 @@ public class PlayerController : MonoBehaviour
         ResetTimeSinceLastShot();
 
         // Sprite faces right by default
-        _playerFacingDirection = SpriteFacingDirection.Right;
+        _playerFacingDirection = GameManager.SpriteFacingDirection.Right;
 
         // Default gun as pointing to the right
-        _gunFacingDirection = SpriteFacingDirection.Right;
+        _gunFacingDirection = GameManager.SpriteFacingDirection.Right;
 
         // Start the melee weapon disabled and listen for the melee attack end animation event
         _currentMeleeWeapon.SetActive(false);
@@ -242,7 +236,7 @@ public class PlayerController : MonoBehaviour
             _rigidbody2D.MovePosition(newPosition);
 
             // Update the player facing based on the player's movement input
-            _playerFacingDirection = _moveInput.x >= 0.0f ? SpriteFacingDirection.Right : SpriteFacingDirection.Left;
+            _playerFacingDirection = _moveInput.x >= 0.0f ? GameManager.SpriteFacingDirection.Right : GameManager.SpriteFacingDirection.Left;
         }
 
         // Update Look
@@ -254,7 +248,7 @@ public class PlayerController : MonoBehaviour
             _projectileWeaponRotationPoint.rotation = Quaternion.Euler(0.0f, 0.0f, rotateAngle);
 
             // Update the gun facing based on the player's look input direction
-            _gunFacingDirection = cross.z >= 0.0f ? SpriteFacingDirection.Left : SpriteFacingDirection.Right;
+            _gunFacingDirection = cross.z >= 0.0f ? GameManager.SpriteFacingDirection.Left : GameManager.SpriteFacingDirection.Right;
 
             // If "Right Stick Continuous Fire" is enabled, then fire bullets as long as the right stick is held in any direction (e.g. like Smash TV)
             // Do not fire if melee attacking
@@ -282,7 +276,7 @@ public class PlayerController : MonoBehaviour
                 _projectileWeaponRotationPoint.rotation = Quaternion.Euler(0.0f, 0.0f, rotateAngle);
 
                 // Update the gun facing based on the player's mouse cursor direction
-                _gunFacingDirection = cross.z >= 0.0f ? SpriteFacingDirection.Left : SpriteFacingDirection.Right;
+                _gunFacingDirection = cross.z >= 0.0f ? GameManager.SpriteFacingDirection.Left : GameManager.SpriteFacingDirection.Right;
             }
         }
 
@@ -291,6 +285,12 @@ public class PlayerController : MonoBehaviour
 
         // Update gun facing direction
         UpdateGunSpriteFacingDirection();
+
+        // Update satellite weapon facing direction
+        if(_currentSatelliteWeapon != null)
+        {
+            _currentSatelliteWeapon.UpdateFacingDirection(_gunFacingDirection);
+        }
 
         // Set the melee weapon rotation depending on how the player is pressing their thumbsticks
         // Priority will go to the right thumbstick aiming. Otherwise, will use the movement direction.
@@ -321,8 +321,8 @@ public class PlayerController : MonoBehaviour
     {
         switch(_playerFacingDirection)
         {
-            case SpriteFacingDirection.Right: _spriteRenderer.flipX = false; break;
-            case SpriteFacingDirection.Left: _spriteRenderer.flipX = true; break;
+            case GameManager.SpriteFacingDirection.Right: _spriteRenderer.flipX = false; break;
+            case GameManager.SpriteFacingDirection.Left: _spriteRenderer.flipX = true; break;
             default: break;
         }
     }
@@ -331,8 +331,8 @@ public class PlayerController : MonoBehaviour
     {
         switch(_gunFacingDirection)
         {
-            case SpriteFacingDirection.Right: _currentWeapon.SpriteRenderer.flipY = false; break;
-            case SpriteFacingDirection.Left: _currentWeapon.SpriteRenderer.flipY = true; break;
+            case GameManager.SpriteFacingDirection.Right: _currentWeapon.SpriteRenderer.flipY = false; break;
+            case GameManager.SpriteFacingDirection.Left: _currentWeapon.SpriteRenderer.flipY = true; break;
             default: break;
         }
     }

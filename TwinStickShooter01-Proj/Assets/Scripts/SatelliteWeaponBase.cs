@@ -12,7 +12,12 @@ public abstract class SatelliteWeaponBase : MonoBehaviour
     [Tooltip("Clockwise or Counterwise rotation")]
     [SerializeField] RotationDirection _rotationDirection;
 
+    [Tooltip("Whether or not to face the same X direction as the player's current projectile weapon")]
+    [SerializeField] bool _useProjectileWeaponFacing = true;
+
     Rigidbody2D _rigidbody2D;
+    SpriteRenderer _spriteRenderer;
+
     float _curRotationAngle = 0.0f;
 
     // The Rigidbody2D of the GameObject this 'satellite' will rotate around
@@ -32,6 +37,7 @@ public abstract class SatelliteWeaponBase : MonoBehaviour
     void Start()
     {
         _rigidbody2D = GetComponent<Rigidbody2D>();
+        _spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     void FixedUpdate()
@@ -71,8 +77,18 @@ public abstract class SatelliteWeaponBase : MonoBehaviour
     public void SetActive(bool active) { gameObject.SetActive(active); }
     public Vector2 GetPosition => _rigidbody2D.position;
 
-    public void FireProjectile()
+    public virtual void UpdateFacingDirection(GameManager.SpriteFacingDirection spriteFacingDirection)
     {
+        if(!_useProjectileWeaponFacing)
+        {
+            return;
+        }
 
+        switch(spriteFacingDirection)
+        {
+            case GameManager.SpriteFacingDirection.Right: _spriteRenderer.flipX = false; break;
+            case GameManager.SpriteFacingDirection.Left: _spriteRenderer.flipX = true; break;
+            default: break;
+        }
     }
 }

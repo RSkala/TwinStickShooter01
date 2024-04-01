@@ -14,6 +14,13 @@ public class GameManager : MonoBehaviour
 
     public static GameManager Instance { get; private set; }
 
+    public enum SpriteFacingDirection
+    {
+        Invalid,
+        Right,
+        Left
+    }
+
     void Awake()
     {
         if(Instance != null)
