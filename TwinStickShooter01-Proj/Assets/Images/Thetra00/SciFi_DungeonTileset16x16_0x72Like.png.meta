@@ -4331,13 +4331,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SciFi_DungeonTileset16x16_0x72Like_201
+      name: scifi_button_up
       rect:
         serializedVersion: 2
-        x: 96
-        y: 16
-        width: 16
-        height: 16
+        x: 98
+        y: 20
+        width: 14
+        height: 9
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -4352,13 +4352,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SciFi_DungeonTileset16x16_0x72Like_202
+      name: scifi_button_down
       rect:
         serializedVersion: 2
-        x: 112
-        y: 16
-        width: 16
-        height: 16
+        x: 113
+        y: 20
+        width: 14
+        height: 9
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -4966,8 +4966,6 @@ TextureImporter:
       SciFi_DungeonTileset16x16_0x72Like_2: 1362615735
       SciFi_DungeonTileset16x16_0x72Like_20: -1111131693
       SciFi_DungeonTileset16x16_0x72Like_200: -1100381857
-      SciFi_DungeonTileset16x16_0x72Like_201: -14687587
-      SciFi_DungeonTileset16x16_0x72Like_202: 1181118242
       SciFi_DungeonTileset16x16_0x72Like_203: 798843714
       SciFi_DungeonTileset16x16_0x72Like_204: 2139134658
       SciFi_DungeonTileset16x16_0x72Like_205: 1728988780
@@ -5086,6 +5084,8 @@ TextureImporter:
       gun_purple_3: -1333690856
       gun_purple_4: -1927171482
       gun_purple_5: -2858927
+      scifi_button_down: 1181118242
+      scifi_button_up: -14687587
       sword_green_l: 64958101
       sword_green_m: 525392989
       sword_green_s: -31083395

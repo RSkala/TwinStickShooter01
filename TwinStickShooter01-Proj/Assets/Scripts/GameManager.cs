@@ -12,6 +12,12 @@ public class GameManager : MonoBehaviour
     [Tooltip("After damage flash, number of frames to wait before returning to original color")]
     [field:SerializeField] public int DamageFlashFramesToWait { get; private set; }
 
+    [Tooltip("Position in the world to translate a pickedup item to (i.e. where the UI is located visually to the user)")]
+    [field:SerializeField] public Transform PickupItemUIPosition { get; private set; }
+
+    [Tooltip("Speed at which a picked up item should move towards the player's UI (when marked to do so)")]
+    [field:SerializeField] public float PickupItemUIMoveSpeed { get; private set; }
+
     public static GameManager Instance { get; private set; }
 
     public enum SpriteFacingDirection
