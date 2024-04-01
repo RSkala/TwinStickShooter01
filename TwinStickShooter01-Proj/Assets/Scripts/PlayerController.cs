@@ -47,15 +47,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Transform _meleeWeaponRotationPoint;
 
     // ---------------------------------------------------
-    // [Header("Satellite Weapon")]
-
-    // [Tooltip("The player's currently selected satellite weapon")]
-    // [SerializeField] SatelliteWeapon _satelliteWeapon; // RKS TODO: Since this is now attached dynamically, move to non-serialized fields
-
-    // [Tooltip("Whether to enabled or disable player satellite weapons")]
-    // [SerializeField] bool _enableSatelliteWeapon; // RKS TODO: Remove this, it is no longer necessary
-
-    // ---------------------------------------------------
     [Header("Movement Collision")]
     [SerializeField] ContactFilter2D movementContactFilter;
     [SerializeField] float collisionOffset = 0.05f;
@@ -160,10 +151,6 @@ public class PlayerController : MonoBehaviour
 
         // Default gun as pointing to the right
         _gunFacingDirection = SpriteFacingDirection.Right;
-
-        // Enable/Disable Satellite Weapon and initialize it with this player as the owner
-        //_satelliteWeapon.SetActive(_enableSatelliteWeapon);
-        //_satelliteWeapon.Init(_rigidbody2D);
 
         // Start the melee weapon disabled and listen for the melee attack end animation event
         _currentMeleeWeapon.SetActive(false);
