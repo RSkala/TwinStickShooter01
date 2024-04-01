@@ -52,6 +52,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float collisionOffset = 0.05f;
 
     // ---------------------------------------------------
+    [Header("Power Up")]
+
+    [Tooltip("How long a picked up weapon powerup will be in effect. This applies to all weapon powerups.")]
+    [SerializeField] float _powerupWeaponTime;
+
+    // ---------------------------------------------------
     [Header("Spread Gun")]
     [SerializeField] SpreadGunSize _spreadGunSize = SpreadGunSize.SingleBullet;
     [SerializeField] [Range(0.1f, 90.0f)] float _spreadGunAngle = 10.0f;
@@ -59,6 +65,7 @@ public class PlayerController : MonoBehaviour
     // ---------------------------------------------------
     [Header("UI")]
     [SerializeField] Slider _dashRechargeMeter;
+    [SerializeField] Slider _weaponPowerupTimeMeter; // Countdown timer. Only counts down WHILE firing.
 
     // ---------------------------------------------------
 
@@ -109,6 +116,10 @@ public class PlayerController : MonoBehaviour
     // Player's Health
     float _currentHealth;
 
+    // Weapon power ups
+    bool _powerupWeaponActive = false; // Test: For now, just use SpreadGun
+    float _powerupWeaponTimer;
+
     // TEMP/TEST: Just use the current active PlayerController
     public static PlayerController CurrentPlayerController { get; private set; }
 
@@ -152,6 +163,9 @@ public class PlayerController : MonoBehaviour
 
         // The player should be allowed to dash immediately after spawning
         _dashRechargeTimeElapsed = _dashRechargeTime;
+
+        // The player starts without a weapon powerup
+        _weaponPowerupTimeMeter.gameObject.SetActive(false);
     }
 
     void FixedUpdate()
@@ -260,6 +274,20 @@ public class PlayerController : MonoBehaviour
                     _currentWeapon.FireProjectile(_projectileWeaponRotationPoint.rotation, _spreadGunSize, _spreadGunAngle);
                     FireProjectileFromSatelliteWeapon();
                     _timeSinceLastShot = 0.0f;
+                }
+
+                // TEMP / TEST: Power up Triple Shot
+                if(_powerupWeaponActive)
+                {
+                    _powerupWeaponTimer -= Time.fixedDeltaTime;
+                    if(_powerupWeaponTimer <= 0.0f)
+                    {
+                        _spreadGunSize = SpreadGunSize.SingleBullet;
+                        _powerupWeaponActive = false;
+                        _weaponPowerupTimeMeter.gameObject.SetActive(false);
+                    }
+
+                    _weaponPowerupTimeMeter.value = _powerupWeaponTime > 0.0f ? _powerupWeaponTimer / _powerupWeaponTime : 0.0f;
                 }
             }   
         }
@@ -483,5 +511,15 @@ public class PlayerController : MonoBehaviour
 
         _currentSatelliteWeapon = GameObject.Instantiate(satelliteWeaponPrefab, transform.position, Quaternion.identity);
         _currentSatelliteWeapon.Init(_rigidbody2D);
+    }
+
+    public void ActivateTripleShot()
+    {
+        _powerupWeaponTimer = 5.0f; // 5 seconds -- TODO: Pass from weapon
+        _powerupWeaponTime = 5.0f; // 5 seconds -- TODO: Pass from weapon
+        _powerupWeaponActive = true;
+        _spreadGunSize = SpreadGunSize.ThreeBullets;
+        _weaponPowerupTimeMeter.value = 1.0f;
+        _weaponPowerupTimeMeter.gameObject.SetActive(true);
     }
 }
