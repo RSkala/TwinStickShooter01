@@ -10,9 +10,9 @@ I appreciate ALL creators and support them when I can!
 <!--
 <img src="./Screenshots/TwinStickShooter-Prototype-Screenshot-0001.png" width=250 />
 -->
-<img src="./Screenshots/TwinStickShooter-Prototype-Screenshot-0002.png" width=250/>
+<img src="./Screenshots/TwinStickShooter-Prototype-Screenshot-0002.png" width=350/>
 </br>
-<img src="./Screenshots/TwinStickShooter-Prototype-Screenshot-0001.png" width=250/>
+<img src="./Screenshots/TwinStickShooter-Prototype-Screenshot-0001.png" width=350/>
 
 #
 ### Pixel Art Credits:
