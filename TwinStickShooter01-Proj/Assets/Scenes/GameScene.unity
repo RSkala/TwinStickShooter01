@@ -16355,6 +16355,9 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 4fbae7207ba8743f89a1ccf5d81f359e, type: 3}
   - {fileID: 8300000, guid: 2b891cdc85d6b4a6591ffac3c8f6c112, type: 3}
   - {fileID: 8300000, guid: 7d5ce1f2996204204851de95555a08c0, type: 3}
+  _coinPickupClips:
+  - {fileID: 8300000, guid: f10668773bdef482c954e08d063141ff, type: 3}
+  - {fileID: 8300000, guid: 8277a9ede0f004c3daf901b7b600e51e, type: 3}
 --- !u!1 &1683917960
 GameObject:
   m_ObjectHideFlags: 0

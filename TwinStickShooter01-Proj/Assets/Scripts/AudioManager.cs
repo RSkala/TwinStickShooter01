@@ -8,6 +8,7 @@ public class AudioManager : MonoBehaviour
     [SerializeField] AudioClip[] _dashSoundClips;
     [SerializeField] AudioClip[] _meleeAttackClips;
     [SerializeField] AudioClip[] _tinySlugDeathClips;
+    [SerializeField] AudioClip[] _coinPickupClips;
 
     public static AudioManager Instance { get; private set; }
 
@@ -16,6 +17,7 @@ public class AudioManager : MonoBehaviour
     AudioSource _dashSoundSource;
     AudioSource _meleeAttackSource;
     AudioSource _tinySlugDeathSource;
+    AudioSource _coinPickupSource;
 
     public enum SFX
     {
@@ -25,6 +27,7 @@ public class AudioManager : MonoBehaviour
         Dash,
         MeleeAttack,
         TinySlugDeath,
+        CoinPickup,
     }
 
     void Awake()
@@ -44,7 +47,8 @@ public class AudioManager : MonoBehaviour
         CreateAudioSourceChild(out _arrowFireSource, "ArrowFireSource", 0.5f);
         CreateAudioSourceChild(out _dashSoundSource, "DashSoundSource");
         CreateAudioSourceChild(out _meleeAttackSource, "MeleeAttackSource");
-        CreateAudioSourceChild(out _tinySlugDeathSource, "TinySlugDeath", 0.5f);
+        CreateAudioSourceChild(out _tinySlugDeathSource, "TinySlugDeathSource", 0.5f);
+        CreateAudioSourceChild(out _coinPickupSource, "CoinPickupSource", 0.5f);
     }
 
     void CreateAudioSourceChild(out AudioSource audioSource, string audioSourceName, float volume = 1.0f)
@@ -83,6 +87,7 @@ public class AudioManager : MonoBehaviour
             case SFX.Dash: PlayRandomSoundFromClips(_dashSoundSource, _dashSoundClips); break;
             case SFX.MeleeAttack: PlayRandomSoundFromClips(_meleeAttackSource, _meleeAttackClips); break;
             case SFX.TinySlugDeath: PlayRandomSoundFromClips(_tinySlugDeathSource, _tinySlugDeathClips); break;
+            case SFX.CoinPickup: PlayRandomSoundFromClips(_coinPickupSource, _coinPickupClips); break;
             default: break;
         }
     }
