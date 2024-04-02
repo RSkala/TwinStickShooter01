@@ -106,14 +106,12 @@ public abstract class SatelliteWeaponBase : MonoBehaviour
         _currentHealth = Mathf.Max(0.0f, _currentHealth);
         if(_currentHealth <= 0.0f)
         {
-            Destroy(gameObject);
-            
-            // Play Death Particle, if this enemy has one
-            if(_deathParticlePrefab != null)
-            {
-                ParticleSystem deathParticle = GameObject.Instantiate(_deathParticlePrefab, transform.position, Quaternion.identity);
-                deathParticle.Play();
-            }
+            KillSatelliteWeapon();
         }
+    }
+
+    protected virtual void KillSatelliteWeapon()
+    {
+        Destroy(gameObject);
     }
 }

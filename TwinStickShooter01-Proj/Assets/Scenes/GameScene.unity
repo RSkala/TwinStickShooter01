@@ -17211,6 +17211,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 8277a9ede0f004c3daf901b7b600e51e, type: 3}
   _satelliteWeaponEatenClips:
   - {fileID: 8300000, guid: 6cd3313ca12a848b7a4309bf2c4fd472, type: 3}
+  _satelliteWeaponDeathCryClips:
+  - {fileID: 8300000, guid: f8df013dc3ae44005bdddc29fbedd5a5, type: 3}
 --- !u!1 &1683917960
 GameObject:
   m_ObjectHideFlags: 0
