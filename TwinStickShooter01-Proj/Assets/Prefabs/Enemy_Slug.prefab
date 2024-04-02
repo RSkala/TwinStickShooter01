@@ -196,8 +196,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maxHealth: 20
   _moveSpeed: 1.5
-  _damage: 7
-  _pointValue: 7
+  _damage: 10
+  _pointValue: 10
   _deathParticlePrefab: {fileID: 6964198379561755958, guid: 273d20aab03a446458da2b04260942cd, type: 3}
   _useNavigation: 1
 --- !u!195 &7770451580169845953

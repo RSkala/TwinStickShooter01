@@ -217,8 +217,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHealth: 10
-  _moveSpeed: 1.1
-  _damage: 8
-  _pointValue: 8
+  _moveSpeed: 2
+  _damage: 15
+  _pointValue: 15
   _deathParticlePrefab: {fileID: 6964198379561755958, guid: 489b95977edf74ed09a28d9cac052285, type: 3}
   _useNavigation: 1
