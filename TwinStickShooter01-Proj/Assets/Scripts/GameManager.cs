@@ -18,6 +18,8 @@ public class GameManager : MonoBehaviour
     [Tooltip("Speed at which a picked up item should move towards the player's UI (when marked to do so)")]
     [field:SerializeField] public float PickupItemUIMoveSpeed { get; private set; }
 
+    [SerializeField] GameObject _gameOverScreen;
+
     public static GameManager Instance { get; private set; }
 
     public int TotalEnemiesKilled { get; private set; }
@@ -47,11 +49,17 @@ public class GameManager : MonoBehaviour
             Debug.LogWarning("Enemy spawning is DISABLED! Make sure this is what you wanted to do before looking at any spawning issues.");
         }
         TotalPoints = 0;
+        _gameOverScreen.SetActive(false);
     }
 
     public void UpdateTotalEnemiesKilledAndPoints(int killedEnemyPointValue)
     {
         TotalEnemiesKilled++;
         TotalPoints += killedEnemyPointValue;
+    }
+
+    public void ShowGameOverScreen()
+    {
+        _gameOverScreen.SetActive(true);
     }
 }

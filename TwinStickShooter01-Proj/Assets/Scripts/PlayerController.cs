@@ -115,8 +115,9 @@ public class PlayerController : MonoBehaviour
         ElevenBullets = 11
     }
 
-    // Player's Health
+    // Player's Health / Is Dead
     float _currentHealth;
+    bool _isDead;
 
     // Weapon power ups
     bool _powerupWeaponActive = false; // Test: For now, just use SpreadGun
@@ -149,6 +150,7 @@ public class PlayerController : MonoBehaviour
 
         // Set player's current health to the max health
         _currentHealth = _playerMaxHealth;
+        _isDead = false;
 
         // Initialize "time since last shot" to the fire rate, so there is no delay on the very first shot
         ResetTimeSinceLastShot();
@@ -172,6 +174,11 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
+        if(_isDead)
+        {
+            return;
+        }
+
         // The "Dash Trail Renderer" should only emit while the player is dashing
         _dashTrailRenderer.emitting = _isDashing;
 
@@ -514,7 +521,10 @@ public class PlayerController : MonoBehaviour
         _currentHealth = Mathf.Max(0.0f, _currentHealth);
         if(_currentHealth <= 0.0f)
         {
-            Debug.Log("Player is dead. Show game over screen.");
+            // Player is dead. Show game over screen.
+            GameManager.Instance.ShowGameOverScreen();
+            _isDead = true;
+            Destroy(_currentSatelliteWeapon);
         }
     }
 
