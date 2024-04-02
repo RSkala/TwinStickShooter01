@@ -67,6 +67,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Slider _healthMeter;
     [SerializeField] Slider _dashRechargeMeter;
     [SerializeField] Slider _weaponPowerupTimeMeter; // Countdown timer. Only counts down WHILE firing.
+    [SerializeField] Text _playerScore;
 
     // ---------------------------------------------------
 
@@ -346,6 +347,7 @@ public class PlayerController : MonoBehaviour
         }
 
         _healthMeter.value = _playerMaxHealth > 0.0f ? _currentHealth / _playerMaxHealth : 0.0f;
+        _playerScore.text = GameManager.Instance.TotalPoints.ToString();
     }
 
     void UpdatePlayerSpriteFacingDirection()

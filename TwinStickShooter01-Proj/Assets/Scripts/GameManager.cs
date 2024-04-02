@@ -46,6 +46,7 @@ public class GameManager : MonoBehaviour
         {
             Debug.LogWarning("Enemy spawning is DISABLED! Make sure this is what you wanted to do before looking at any spawning issues.");
         }
+        TotalPoints = 0;
     }
 
     public void UpdateTotalEnemiesKilledAndPoints(int killedEnemyPointValue)

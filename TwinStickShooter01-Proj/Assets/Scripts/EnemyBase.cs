@@ -150,6 +150,9 @@ public class EnemyBase : MonoBehaviour
             ParticleSystem deathParticle = GameObject.Instantiate(_deathParticlePrefab, _rigidbody2D.position, Quaternion.identity);
             deathParticle.Play();
         }
+
+        // Update player stats
+        GameManager.Instance.UpdateTotalEnemiesKilledAndPoints(_pointValue);
     }
 
     public void DealDamage(float damage)
