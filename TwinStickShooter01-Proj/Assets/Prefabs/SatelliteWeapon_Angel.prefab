@@ -174,3 +174,6 @@ MonoBehaviour:
   _rotationSpeed: 360
   _distanceFromOwner: 1.5
   _rotationDirection: 0
+  _useProjectileWeaponFacing: 1
+  _maxHealth: 1
+  _deathParticlePrefab: {fileID: 6964198379561755958, guid: 2335918fe61074402866453cc3144695, type: 3}

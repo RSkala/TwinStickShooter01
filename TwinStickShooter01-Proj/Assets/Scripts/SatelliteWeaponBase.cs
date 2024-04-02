@@ -18,6 +18,9 @@ public abstract class SatelliteWeaponBase : MonoBehaviour
     [Tooltip("Health of this satellite weapon, so they can be destroyed")]
     [SerializeField] float _maxHealth;
 
+    [Tooltip("Particle that will play when this satellite is destroyed")]
+    [SerializeField] protected ParticleSystem _deathParticlePrefab;
+
     Rigidbody2D _rigidbody2D;
     SpriteRenderer _spriteRenderer;
 
@@ -104,6 +107,13 @@ public abstract class SatelliteWeaponBase : MonoBehaviour
         if(_currentHealth <= 0.0f)
         {
             Destroy(gameObject);
+            
+            // Play Death Particle, if this enemy has one
+            if(_deathParticlePrefab != null)
+            {
+                ParticleSystem deathParticle = GameObject.Instantiate(_deathParticlePrefab, transform.position, Quaternion.identity);
+                deathParticle.Play();
+            }
         }
     }
 }
