@@ -125,6 +125,7 @@ public class PlayerController : MonoBehaviour
 
     // TEMP/TEST: Just use the current active PlayerController
     public static PlayerController CurrentPlayerController { get; private set; }
+    public SatelliteWeaponBase CurrentSatelliteWeapon => _currentSatelliteWeapon;
 
     void ResetTimeSinceLastShot() { _timeSinceLastShot = _currentWeapon.FireRate; }
 

@@ -15,10 +15,14 @@ public abstract class SatelliteWeaponBase : MonoBehaviour
     [Tooltip("Whether or not to face the same X direction as the player's current projectile weapon")]
     [SerializeField] bool _useProjectileWeaponFacing = true;
 
+    [Tooltip("Health of this satellite weapon, so they can be destroyed")]
+    [SerializeField] float _maxHealth;
+
     Rigidbody2D _rigidbody2D;
     SpriteRenderer _spriteRenderer;
 
     float _curRotationAngle = 0.0f;
+    float _currentHealth;
 
     // The Rigidbody2D of the GameObject this 'satellite' will rotate around
     Rigidbody2D _ownerRigidbody2D;
@@ -38,6 +42,7 @@ public abstract class SatelliteWeaponBase : MonoBehaviour
     {
         _rigidbody2D = GetComponent<Rigidbody2D>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
+        _currentHealth = _maxHealth;
     }
 
     void FixedUpdate()
@@ -89,6 +94,16 @@ public abstract class SatelliteWeaponBase : MonoBehaviour
             case GameManager.SpriteFacingDirection.Right: _spriteRenderer.flipX = false; break;
             case GameManager.SpriteFacingDirection.Left: _spriteRenderer.flipX = true; break;
             default: break;
+        }
+    }
+
+    public void DealDamage(float damageAmount)
+    {
+        _currentHealth -= damageAmount;
+        _currentHealth = Mathf.Max(0.0f, _currentHealth);
+        if(_currentHealth <= 0.0f)
+        {
+            Destroy(gameObject);
         }
     }
 }

@@ -7,7 +7,7 @@ public class EnemyBase : MonoBehaviour
 {
     [SerializeField] float _maxHealth;
     [SerializeField] float _moveSpeed;
-    [SerializeField] float _damage; // Damage to deal to the player
+    [SerializeField] protected float _damage; // Damage to deal to the player
     [SerializeField] int _pointValue; // Point value when player kills this enemy
     [SerializeField] protected ParticleSystem _deathParticlePrefab;
 
@@ -22,8 +22,8 @@ public class EnemyBase : MonoBehaviour
     // The enemy's current health. Kill when health reaches zero
     float _currentHealth;
 
-    GameObject _target;
-    Rigidbody2D _targetRigidbody2D;
+    protected GameObject _target;
+    protected Rigidbody2D _targetRigidbody2D;
 
     protected virtual void Start()
     {
@@ -96,7 +96,6 @@ public class EnemyBase : MonoBehaviour
 
     protected virtual void OnTriggerEnter2D(Collider2D other)
     {
-        //Debug.Log(GetType().Name + ".OnTriggerEnter - " + gameObject.name + ", other: " + other.gameObject.name);
         if(other.gameObject.TryGetComponent<PlayerController>(out var playerController))
         {
             // This enemy has touched the player. Deal damage to the player.
