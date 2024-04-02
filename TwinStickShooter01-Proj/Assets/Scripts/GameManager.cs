@@ -20,6 +20,9 @@ public class GameManager : MonoBehaviour
 
     public static GameManager Instance { get; private set; }
 
+    public int TotalEnemiesKilled { get; private set; }
+    public int TotalPoints { get; private set; }
+
     public enum SpriteFacingDirection
     {
         Invalid,
@@ -43,5 +46,11 @@ public class GameManager : MonoBehaviour
         {
             Debug.LogWarning("Enemy spawning is DISABLED! Make sure this is what you wanted to do before looking at any spawning issues.");
         }
+    }
+
+    public void UpdateTotalEnemiesKilledAndPoints(int killedEnemyPointValue)
+    {
+        TotalEnemiesKilled++;
+        TotalPoints += killedEnemyPointValue;
     }
 }

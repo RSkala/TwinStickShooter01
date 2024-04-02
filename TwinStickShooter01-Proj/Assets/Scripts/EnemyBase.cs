@@ -7,6 +7,8 @@ public class EnemyBase : MonoBehaviour
 {
     [SerializeField] float _maxHealth;
     [SerializeField] float _moveSpeed;
+    [SerializeField] float _damage; // Damage to deal to the player
+    [SerializeField] int _pointValue; // Point value when player kills this enemy
     [SerializeField] protected ParticleSystem _deathParticlePrefab;
 
     // Whether or not to use navigation. Some enemies may ignore navigation (e.g. flyers, ghosts, etc)
@@ -95,6 +97,11 @@ public class EnemyBase : MonoBehaviour
     protected virtual void OnTriggerEnter2D(Collider2D other)
     {
         //Debug.Log(GetType().Name + ".OnTriggerEnter - " + gameObject.name + ", other: " + other.gameObject.name);
+        if(other.gameObject.TryGetComponent<PlayerController>(out var playerController))
+        {
+            // This enemy has touched the player. Deal damage to the player.
+            playerController.DealDamage(_damage);
+        }
 
         ProjectileBase projectile = other.gameObject.GetComponent<ProjectileBase>();
         if(projectile != null)
@@ -115,6 +122,11 @@ public class EnemyBase : MonoBehaviour
             //Debug.Log("Dealing " + meleeWeapon.MeleeDamage + " Melee Damage to " + gameObject.name);
             DealDamage(meleeWeapon.MeleeDamage);
         }
+    }
+
+    public virtual void OnCollisionEnter2D(Collision2D collision)
+    {
+        //Debug.Log("OnCollisionEnter2D - " + gameObject.name + " , collision: " + collision.gameObject.name);
     }
 
     public virtual void SetTarget(GameObject target)

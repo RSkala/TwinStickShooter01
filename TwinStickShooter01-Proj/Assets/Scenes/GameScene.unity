@@ -7588,6 +7588,7 @@ MonoBehaviour:
   _powerupWeaponTime: 0
   _spreadGunSize: 1
   _spreadGunAngle: 10
+  _healthMeter: {fileID: 0}
   _dashRechargeMeter: {fileID: 0}
   _weaponPowerupTimeMeter: {fileID: 0}
 --- !u!1 &1062757920
@@ -16010,6 +16011,7 @@ MonoBehaviour:
   _powerupWeaponTime: 0
   _spreadGunSize: 1
   _spreadGunAngle: 10
+  _healthMeter: {fileID: 346367725}
   _dashRechargeMeter: {fileID: 2069439280}
   _weaponPowerupTimeMeter: {fileID: 2140035536}
 --- !u!114 &1563589236
@@ -17726,6 +17728,7 @@ MonoBehaviour:
   _powerupWeaponTime: 0
   _spreadGunSize: 1
   _spreadGunAngle: 10
+  _healthMeter: {fileID: 0}
   _dashRechargeMeter: {fileID: 0}
   _weaponPowerupTimeMeter: {fileID: 0}
 --- !u!114 &1772141502

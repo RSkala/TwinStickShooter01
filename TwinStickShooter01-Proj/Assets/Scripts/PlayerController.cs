@@ -64,6 +64,7 @@ public class PlayerController : MonoBehaviour
 
     // ---------------------------------------------------
     [Header("UI")]
+    [SerializeField] Slider _healthMeter;
     [SerializeField] Slider _dashRechargeMeter;
     [SerializeField] Slider _weaponPowerupTimeMeter; // Countdown timer. Only counts down WHILE firing.
 
@@ -343,6 +344,8 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
+
+        _healthMeter.value = _playerMaxHealth > 0.0f ? _currentHealth / _playerMaxHealth : 0.0f;
     }
 
     void UpdatePlayerSpriteFacingDirection()
@@ -492,9 +495,21 @@ public class PlayerController : MonoBehaviour
         //Debug.Log(GetType().Name + ".OnTriggerEnter2D - " + gameObject.name + ", other: " + other.gameObject.name);
     }
 
-    void DealDamage(float damageAmount)
+    void OnCollisionEnter2D(Collision2D collision)
     {
+        //Debug.Log(GetType().Name + ".OnTriggerEnter2D - " + gameObject.name + ", collision: " + collision.gameObject.name);
+    }
+
+    public void DealDamage(float damageAmount)
+    {
+        if(_isDashing)
+        {
+            //Debug.Log("Player is invincible while dashing! No damage will be dealt.");
+            return;
+        }
+
         _currentHealth -= damageAmount;
+        _currentHealth = Mathf.Max(0.0f, _currentHealth);
         if(_currentHealth <= 0.0f)
         {
             Debug.Log("Player is dead. Show game over screen.");
