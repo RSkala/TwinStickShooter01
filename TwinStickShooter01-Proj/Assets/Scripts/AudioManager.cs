@@ -50,7 +50,7 @@ public class AudioManager : MonoBehaviour
     {
         // Create the AudioSource objects and add as chidren
         CreateAudioSourceChild(out _pistolFireSource, "PistolFireSource", 0.3f);
-        CreateAudioSourceChild(out _arrowFireSource, "ArrowFireSource", 0.3f);
+        CreateAudioSourceChild(out _arrowFireSource, "ArrowFireSource", 0.1f);
         CreateAudioSourceChild(out _dashSoundSource, "DashSoundSource");
         CreateAudioSourceChild(out _meleeAttackSource, "MeleeAttackSource");
         CreateAudioSourceChild(out _tinySlugDeathSource, "TinySlugDeathSource", 0.5f);
