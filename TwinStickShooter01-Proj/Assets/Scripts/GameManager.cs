@@ -3,6 +3,9 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    [Tooltip("Player will not take damage while this is true")]    
+    [field:SerializeField] public bool PlayerInvincible { get; private set; }
+
     [Tooltip("No enemies will be spawned while this is true")]
     [field:SerializeField] public bool DisableEnemySpawning { get; private set; }
 
@@ -18,7 +21,11 @@ public class GameManager : MonoBehaviour
     [Tooltip("Speed at which a picked up item should move towards the player's UI (when marked to do so)")]
     [field:SerializeField] public float PickupItemUIMoveSpeed { get; private set; }
 
+    [Tooltip("Temp Game Over screen overlay to unhide when the player is defeated")]
     [SerializeField] GameObject _gameOverScreen;
+
+    [Tooltip("Navigation GameObject - Just used to ensure it is active when the game is started.")]
+    [SerializeField] GameObject _navigationGameObject;
 
     public static GameManager Instance { get; private set; }
 
@@ -50,6 +57,7 @@ public class GameManager : MonoBehaviour
         }
         TotalPoints = 0;
         _gameOverScreen.SetActive(false);
+        _navigationGameObject.SetActive(true);
     }
 
     public void UpdateTotalEnemiesKilledAndPoints(int killedEnemyPointValue)

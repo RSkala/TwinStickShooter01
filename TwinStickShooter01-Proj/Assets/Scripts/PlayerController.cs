@@ -512,6 +512,11 @@ public class PlayerController : MonoBehaviour
 
     public void DealDamage(float damageAmount)
     {
+        if(GameManager.Instance.PlayerInvincible)
+        {
+            return;
+        }
+
         if(_isDashing)
         {
             //Debug.Log("Player is invincible while dashing! No damage will be dealt.");
@@ -547,6 +552,16 @@ public class PlayerController : MonoBehaviour
         _powerupWeaponTime = 5.0f; // 5 seconds -- TODO: Pass from weapon
         _powerupWeaponActive = true;
         _spreadGunSize = SpreadGunSize.ThreeBullets;
+        _weaponPowerupTimeMeter.value = 1.0f;
+        _weaponPowerupTimeMeter.gameObject.SetActive(true);
+    }
+
+    public void ActivateFiveWave()
+    {
+        _powerupWeaponTimer = 5.0f; // 5 seconds -- TODO: Pass from weapon
+        _powerupWeaponTime = 5.0f; // 5 seconds -- TODO: Pass from weapon
+        _powerupWeaponActive = true;
+        _spreadGunSize = SpreadGunSize.FiveBullets;
         _weaponPowerupTimeMeter.value = 1.0f;
         _weaponPowerupTimeMeter.gameObject.SetActive(true);
     }
