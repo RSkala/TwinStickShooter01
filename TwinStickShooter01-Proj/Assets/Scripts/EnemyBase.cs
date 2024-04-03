@@ -33,6 +33,7 @@ public class EnemyBase : MonoBehaviour
         _navMeshAgent.updateRotation = false;
         _navMeshAgent.updateUpAxis = false;
         _navMeshAgent.speed = _moveSpeed;
+        _navMeshAgent.autoBraking = false;
         // -------------------------------------------
 
         _rigidbody2D = GetComponent<Rigidbody2D>();
